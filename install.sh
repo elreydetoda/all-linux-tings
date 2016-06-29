@@ -43,6 +43,10 @@ cp -r ~/src/oh-my-zsh ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 chsh -s /bin/zsh
 ##################################################################
+## moving all the dot files to your home directory
+cp .* ~/
+
+##################################################################
 
 # creating script which is used in .xinitrc
 cat >  ~/scripts/lowbat.sh <<EOF
