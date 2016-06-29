@@ -2,7 +2,7 @@ set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=/home/elrey/src/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 
@@ -21,7 +21,10 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'ctrlpvim/ctrlp.vim'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'dhruvasagar/vim-table-mode'
+" Plugin 'SirVer/ultisnips' 
+
 " Plugin 'mattn/emmet-vim'
 
 " All of your Plugins must be added before the following line
@@ -85,3 +88,6 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set nu
 
 set clipboard=unnamed
+
+" used for java coding
+"
