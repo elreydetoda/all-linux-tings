@@ -29,6 +29,7 @@ mkdir ~/scripts
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/src/oh-my-zsh
 git clone https://github.com/Airblader/i3.git ~/src/i3
 git clone https://github.com/vim/vim.git ~/src/vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/src/Vundle.vim
 
 ##################################################################
 ## setting up i3-wm-gaps for logging you still need to go in an compile everything (I wouldn't even trust me to do that, you should trust anyone to do it either... :)
