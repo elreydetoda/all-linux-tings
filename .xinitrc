@@ -1,6 +1,5 @@
 #!/bin/sh
 
-xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
 
 userresources=$HOME/.Xresources
@@ -51,20 +50,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-## default config
-# twm &
-# xclock -geometry 50x50-1+1 &
-# xterm -geometry 80x50+494+51 &
-# xterm -geometry 80x20+494-0 &
-# exec xterm -geometry 80x66+0+0 -name login
-##
-
-## my config
-# enable logging to go to a var dir for i3wm
+# used for making battery life extend more
 xset +dpms
 xset dpms 0 0 300
-numlockx &
-feh --randomize --bg-fill /home/elrey/pictures/backgroud-pics/*
-/home/elrey/scripts/lowbat.sh &
 sudo powertop --auto-tune &
+
+# used for background pictures...as you can see...
+feh --randomize --bg-fill /home/$USER/pictures/backgroud-pics/*
+
+# used for ensuring the user knows the batter is close to dying
+/home/$USER/scripts/lowbat.sh &
+
+# enable logging to go to a var dir for i3wm
 exec i3 -V >> /var/log/i3wm/i3log-$(date +'%F-%k:%M:%S') 2>&1
