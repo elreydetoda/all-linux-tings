@@ -36,22 +36,18 @@ set $right l
 
 ## Social
 bindsym Mod4+t exec thunderbird
-bindsym Mod4+y exec plaidchat 
-bindsym Mod4+period exec Messenger
-bindsym Mod4+Shift+f exec firefox --new-window www.facebook.com 
+bindsym Mod4+Shift+f exec chromium-browser --new-window www.facebook.com 
 bindsym Mod4+m exec firefox --new-window web.vma.vzw.com
 
 # Cloud
-bindsym Mod4+x exec dropbox
-bindsym Mod4+b exec /home/elrey/boxcryptor/Boxcryptor_Portable.sh
-bindsym Mod4+z exec truecrypt
+bindsym Mod4+x exec dropbox start
+bindsym Mod4+b exec /home/elrey/.Boxcryptor/Boxcryptor_Portable.sh
 
 ## Utilities
-bindsym Mod4+Shift+Return exec i3lock -d -u -i "/home/elrey/pictures/lockscreen.png" -p win -e -f
-bindsym --release Mod4+comma exec "scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pictures/screenshots'"
+bindsym Mod4+Shift+Return exec lock-logger.sh
+bindsym --release Mod4+comma exec "scrot -s '%F-%H:%M:%S_$wx$h.png' -e 'mv $f ~/pictures/screenshots'"
 bindsym Mod4+n exec nm-applet
 bindsym Mod4+i exec firefox
-# bindsym Mod4+i exec --no-startup-id i3-msg " workspace 1; exec /usr/bin/firefox "
 bindsym Mod4+Shift+s exec "xsel | espeak -v mb-en1 -s 120"
 
 ## audio controls
@@ -60,12 +56,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## Sreen brightness controls (doesn't work)
-bindsym XF86KbdBrightnessUp exec "sudo /home/elrey/scripts/kbd.sh up"
-bindsym XF86KbdBrightnessDown exec "sudo /home/elrey/scripts/kbd.sh down"
-
-
-# bindsym XF86KbdBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-# bindsym XF86KbdBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
 # border around your windows
 new_window pixel 5
@@ -82,7 +74,7 @@ smart_gaps on
 floating_modifier Mod4
 
 # start a terminal
-bindsym Mod4+Return exec "urxvt -fn xft:Consolas:pixelsize=16:antialias=true:autohinting=true"
+bindsym Mod4+Return exec urxvt
 
 # kill focused window
 bindsym Mod4+Shift+q kill
