@@ -41,7 +41,7 @@ bindsym Mod4+m exec firefox --new-window web.vma.vzw.com
 
 # Cloud
 bindsym Mod4+x exec dropbox start
-bindsym Mod4+b exec /home/elrey/.Boxcryptor/Boxcryptor_Portable.sh
+bindsym Mod4+b exec /home/$USER/.Boxcryptor/Boxcryptor_Portable.sh
 
 ## Utilities
 bindsym Mod4+Shift+Return exec lock-logger.sh
