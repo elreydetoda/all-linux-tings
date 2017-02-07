@@ -1,0 +1,6 @@
+urxvt*font:		xft:Consolas:pixelsize=12
+URxvt.transparent:	true
+URxvt.shading:		20
+urxvt*scrollBar:	false
+Xft*antialias:		true
+Xft*hinting:		true
