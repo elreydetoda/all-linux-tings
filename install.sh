@@ -12,7 +12,7 @@ read distro
 ##################################################################
 ## installing packages depending on distro
 if (( distro == 1 )) ; then
-	sudo apt-get install zsh tmux powertop i3status i3lock xorg-xset
+	sudo apt-get install zsh tmux powertop i3status i3lock xorg-xset scrot feh rofi geoip-bin pianobar acpi whois espeak
 else
 	sudo pacman -S zsh tmux powertop i3status i3lock xorg-xset
 fi
