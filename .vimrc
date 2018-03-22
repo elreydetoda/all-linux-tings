@@ -23,6 +23,9 @@ Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'dhruvasagar/vim-table-mode'
+Plugin 'Townk/vim-autoclose'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'OmniSharp/omnisharp-vim'
 " Plugin 'SirVer/ultisnips' 
 
 " Plugin 'mattn/emmet-vim'
@@ -44,6 +47,13 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
+" buffering for tabbing in Vagrantfile
+autocmd FileType ruby setlocal sw=2 ts=2 sts=2 expandtab
+autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
+
+" buffering for tabbing in yml files
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/yaml.vim
+
 " buffering for tabbing in python files
 au BufNewFile,BufRead *.py
 	\set tabstop=4
@@ -54,10 +64,12 @@ au BufNewFile,BufRead *.py
 	\set autoindent
 	\set fileformat=unix
 
-au BufNewFile,BufRead , *.js, *.html, *.css
+au BufNewFile,BufRead , *.js, *.html, *.css, *.json
+"au BufNewFile,BufRead *
 	\set tabstop=2
 	\set softtabstop=2
 	\set shiftwidth=2
+	\set expandtab
 
 hi BadWhitespace guifg=red guibg=green
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
@@ -68,7 +80,7 @@ let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "python with virtualenv support
-py << EOF
+python<< EOF
 import os
 import sys
 if 'VIRTUAL_ENV' in os.environ:
@@ -91,3 +103,32 @@ set clipboard=unnamed
 
 " used for java coding
 "
+
+" used for nerdcommenter
+
+filetype plugin on
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Credit goes to @trvon for these contributions
+set number relativenumber
+map <C-t> :NERDTreeToggle<CR>
