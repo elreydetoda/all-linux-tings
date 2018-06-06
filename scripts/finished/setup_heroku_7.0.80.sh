@@ -3,9 +3,10 @@
 nodeVersion='8.1.3'
 herokuVersion='v7.0.80'
 nvmUrl='https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh '
+OS=$(grep -oE 'amzn|ID=fedora'  /etc/os-release)
 
-if [[ $( grep fedora /etc/os-release) ]] ; then 
-	# all rhel based distros
+if [[ ! -z "$OS" ]] ; then 
+	# all amazon cloud9 or fedora based distros
 	installer='yum'
 else
 	# else it is ubuntu
@@ -29,7 +30,12 @@ export NVM_DIR="$HOME/.nvm"
 nvm install $nodeVersion
 
 # installing working version of heroku
-sudo npm install -g heroku@${herokuVersion}
+sudo npm install heroku@${herokuVersion}
+
+
+# had to do this because amazon was weird about global npm
+mkdir -p ~/.local/bin/
+sudo ln -s ${HOME}/node_modules/.bin/heroku ~/.local/bin/heroku
 
 clear
 echo -e "\n\n\n\nPlese now execute the following command: source ~/.bashrc"
