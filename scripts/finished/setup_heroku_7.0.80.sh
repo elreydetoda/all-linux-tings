@@ -29,13 +29,19 @@ export NVM_DIR="$HOME/.nvm"
 # installing the node version
 nvm install $nodeVersion
 
-# installing working version of heroku
-sudo npm install heroku@${herokuVersion}
+currDir=$(pwd)
 
+# installing working version of heroku
+cd $HOME
+npm install heroku@${herokuVersion}
+
+cd $currDir
 
 # had to do this because amazon was weird about global npm
 mkdir -p ~/.local/bin/
 sudo ln -s ${HOME}/node_modules/.bin/heroku ~/.local/bin/heroku
 
 clear
-echo -e "\n\n\n\nPlese now execute the following command: source ~/.bashrc"
+echo -e "\n\n\n\nPlese now execute the following commands"
+echo 'source ~/.bashrc'
+echo "nvm install $nodeVersion"
