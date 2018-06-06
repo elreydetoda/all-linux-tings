@@ -44,7 +44,9 @@ sudo ln -s ${HOME}/node_modules/.bin/heroku ~/.local/bin/heroku
 clear
 echo -e "\n\n\n\nPlese now execute the following commands"
 echo 'source ~/.bashrc'
-echo -e "nvm install $nodeVersion \n\n\n\n"
-
-echo "for some reason amazon doesn't load everything right."
-echo "sorry didn't want you to have to run commands"
+if [[ $OS == "amzn" ]] ; then
+	echo -e "nvm install $nodeVersion \n\n\n\n"
+	
+	echo "for some reason amazon doesn't load everything right."
+	echo "sorry didn't want you to have to run commands"
+fi
