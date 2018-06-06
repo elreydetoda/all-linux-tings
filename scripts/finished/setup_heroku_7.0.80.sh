@@ -32,4 +32,4 @@ nvm install $nodeVersion
 sudo npm install -g heroku@${herokuVersion}
 
 clear
-echo -e "\n\n\n\nPlese now execute the following command: source ~/.profile"
+echo -e "\n\n\n\nPlese now execute the following command: source ~/.bashrc"
