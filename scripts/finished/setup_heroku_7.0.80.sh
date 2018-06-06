@@ -4,8 +4,15 @@ nodeVersion='8.1.3'
 herokuVersion='v7.0.80'
 nvmUrl='https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh '
 
+if [[ $( grep fedora /etc/os-release) ]] ; then 
+	# all rhel based distros
+	installer='yum'
+else
+	# else it is ubuntu
+	installer='apt-get'
+fi
 # installing node package manager
-sudo apt-get install -y npm
+sudo $installer install -y npm
 
 # linking so programs see node as executable
 sudo ln -s /usr/bin/nodejs /usr/bin/node
