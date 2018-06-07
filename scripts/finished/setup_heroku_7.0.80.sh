@@ -12,6 +12,9 @@
 # are what I trialed this script on.
 ##################################################################
 
+# adding to path
+pathExt='PATH=$HOME/.local/bin/:$PATH'
+
 # used to come back to current directory after install npm modules
 currDir=$(pwd)
 
@@ -61,8 +64,15 @@ npm install heroku@${herokuVersion}
 cd $currDir
 
 # had to do this because amazon was weird about global npm
+echo "export $pathExt" >> ~/.bashrc
 mkdir -p ~/.local/bin/
 sudo ln -s ${HOME}/node_modules/.bin/heroku ~/.local/bin/heroku
+
+
+if [[ $(grep '$HOME/.local/bin/' ~/.bashrc 2> /dev/null ) ]] || [[ $(grep '$HOME/.local/bin/' ~/.bash_profile 2> /dev/null) ]] || [[ $(grep '$HOME/.local/bin/' ~/.profile 2> /dev/null ) ]] ; then
+       echo export 'PATH=$HOME/.local/bin/:$PATH' >> ${HOME}/.bashrc
+fi
+
 
 # displaying user output to refresh env
 clear
