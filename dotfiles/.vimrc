@@ -46,6 +46,7 @@ set foldlevel=99
 
 " Enable folding with the spacebar
 nnoremap <space> za
+nnoremap <C-c> zM
 
 " buffering for tabbing in Vagrantfile
 autocmd FileType ruby setlocal sw=2 ts=2 sts=2 expandtab
@@ -96,11 +97,6 @@ syntax on
 " hide .pyc files
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-" set line numbering
-set nu
-
-set clipboard=unnamed
-
 " used for java coding
 "
 
@@ -132,3 +128,14 @@ let g:NERDTrimTrailingWhitespace = 1
 " Credit goes to @trvon for these contributions
 set number relativenumber
 map <C-t> :NERDTreeToggle<CR>
+
+set splitbelow
+
+" cusomization
+" close terminal 
+command Python terminal ++close python
+
+runtime ftplugin/man.vim
+" set no list
+" set list
+" set colorcolumn=80
