@@ -97,6 +97,11 @@ syntax on
 " hide .pyc files
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
+" set line numbering
+set nu
+
+set clipboard=unnamed
+
 " used for java coding
 "
 
@@ -125,9 +130,19 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
+" Auto opens nerdtree when no file spcified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | NERDTree | endif
+
+" Closes nerdtree if only buffer open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Credit goes to @trvon for these contributions
 set number relativenumber
 map <C-t> :NERDTreeToggle<CR>
+"""
+map <leader>gca :Gcommit -a 
+map <leader>gc :Gcommit<CR>
+map <leader>gp :Gpush<CR>
 
 set splitbelow
 
