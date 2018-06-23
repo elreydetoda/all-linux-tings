@@ -26,6 +26,7 @@ Plugin 'dhruvasagar/vim-table-mode'
 Plugin 'Townk/vim-autoclose'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'OmniSharp/omnisharp-vim'
+Plugin 'mhinz/vim-startify'
 " Plugin 'SirVer/ultisnips' 
 
 " Plugin 'mattn/emmet-vim'
@@ -46,7 +47,6 @@ set foldlevel=99
 
 " Enable folding with the spacebar
 nnoremap <space> za
-nnoremap <C-c> zM
 
 " buffering for tabbing in Vagrantfile
 autocmd FileType ruby setlocal sw=2 ts=2 sts=2 expandtab
@@ -109,6 +109,7 @@ set clipboard=unnamed
 
 filetype plugin on
 
+""" Nerdtree
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -130,12 +131,15 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
+" Default size
+let g:NERDTreeWinSize=15
 " Auto opens nerdtree when no file spcified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | NERDTree | endif
 
 " Closes nerdtree if only buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " Credit goes to @trvon for these contributions
 set number relativenumber
 map <C-t> :NERDTreeToggle<CR>
@@ -144,13 +148,9 @@ map <leader>gca :Gcommit -a
 map <leader>gc :Gcommit<CR>
 map <leader>gp :Gpush<CR>
 
+"" custimization
+" splitting
 set splitbelow
 
-" cusomization
-" close terminal 
+" commands
 command Python terminal ++close python
-
-runtime ftplugin/man.vim
-" set no list
-" set list
-" set colorcolumn=80
