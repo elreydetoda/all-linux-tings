@@ -57,6 +57,7 @@ function compress_folders(){
 
 }
 
+# script to compress all folders listed in CWD 
 function main(){
 
   if [[ $# -ne 1 ]] ; then
