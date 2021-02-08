@@ -6,6 +6,7 @@ set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 # short url: https://git.io/JtV4t
 
 function get_git_root(){
+  # https://stackoverflow.com/questions/957928/is-there-a-way-to-get-the-git-root-directory-in-one-command#answer-957978
   git_root="$(git rev-parse --show-toplevel)"
 }
 
