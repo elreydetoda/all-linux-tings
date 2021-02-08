@@ -11,8 +11,8 @@ set -${-//[s]/}eu${DEBUG+xv}o pipefail
 # 11.08.2013
 # https://blog.woopi.org/wordpress/?p=60
 # alteration on 2020-05-16 by @elreydetoda: https://github.com/elreydetoda
-# cmd: curl -fsSL 'https://git.io/Jf047' | bash -s '<zpool_name>' '<snapshot_name>'
-# debug: export DEBUG=true ; curl -fsSL 'https://git.io/Jf047' | bash -s '<zpool_name>' '<snapshot_name>'
+# cmd: curl -fsSL 'https://git.io/JtVB4' | bash -s '<zpool_name>' '<snapshot_name>'
+# debug: export DEBUG=true ; curl -fsSL 'https://git.io/JtVB4' | bash -s '<zpool_name>' '<snapshot_name>'
 
 
 # Use at your own risk. No warranty. No fee.
