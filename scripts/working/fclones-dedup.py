@@ -16,16 +16,19 @@ def get_reference_file(file_path: str, key_word: str):
         return file_path
 
 def check_dup(key_word: str, ref_file: str, potential_dup: str):
-    if not ref_file == potential_dup:
-        trimming = ref_file.split(key_word)[0]
-        comparing = ref_file.split(key_word)[1]
-        # print(trimming)
-        parsed_potential_dup = '/' + '/'.join(potential_dup.split(trimming)[1].split('/')[1:])
+    if ref_file:
+        if not ref_file == potential_dup:
+            trimming = ref_file.split(key_word)[0]
+            comparing = ref_file.split(key_word)[1]
+            # print(trimming)
+            parsed_potential_dup = '/' + '/'.join(potential_dup.split(trimming)[1].split('/')[1:])
 
-        if comparing == parsed_potential_dup:
-            return potential_dup
-        else:
-            return None
+            if comparing == parsed_potential_dup:
+                return potential_dup
+            else:
+                return None
+    else:
+        return None
 
 def remove_file(file_path: pathlib.Path):
     try:
