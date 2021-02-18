@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import pathlib, json
+import pathlib, json, argparse
 
 def get_json_file(file_path: pathlib.Path):
     return json.loads(file_path.read_bytes())
@@ -43,9 +43,14 @@ def remove_file(file_path: pathlib.Path):
         exit(2)
 
 def main():
-    dedups_file = pathlib.Path('/storage/backups/laptop.bak/linux/personal/2021-02-17-dupes.json')
-    keep_top_level_folder_key = '20170328'
+    parser = argparse.ArgumentParser(description='This is used to ingest the .json file that fclones produces. After ingested it deletes file that are duplicates')
 
+    parser.add_argument('fclones_file', help='This is the json file that fclones outputted')
+    parser.add_argument('key_folder', help="Folder that is used to be the key reference folder")
+
+    args = parser.parse_args()
+
+    dedups_file = pathlib.Path(args.fclones_file)
     json_obj = get_json_file(dedups_file)
 
     for dup in json_obj:
@@ -56,11 +61,11 @@ def main():
 
         for file_path in dup['files']:
 
-            ref_file = get_reference_file(file_path, keep_top_level_folder_key)
+            ref_file = get_reference_file(file_path, args.key_folder)
             if ref_file is None:
                 ref_file = old_ref
 
-            dup_file = check_dup(keep_top_level_folder_key, ref_file, file_path)
+            dup_file = check_dup(args.key_folder, ref_file, file_path)
 
             if dup_file:
                 remove_file(pathlib.Path(dup_file))
