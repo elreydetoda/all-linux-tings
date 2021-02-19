@@ -52,6 +52,7 @@ def main():
 
     dedups_file = pathlib.Path(args.fclones_file)
     json_obj = get_json_file(dedups_file)
+    deleted_files = 0
 
     for dup in json_obj:
 
@@ -69,9 +70,12 @@ def main():
 
             if dup_file:
                 remove_file(pathlib.Path(dup_file))
+                deleted_files += 1
 
 
             old_ref = ref_file
+    
+    print("Deleted {} files.".format(deleted_files))
 
 if __name__ == "__main__":
     main()
