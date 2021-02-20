@@ -5,7 +5,7 @@ set -${-//[s]/}eu${DEBUG+xv}o pipefail
 
 # short url: https://git.io/JtVBp
 
-if [[ -n "${1}" ]] ; then
+if [[ -n "${1:-}" ]] ; then
   pool="${1}"
 else
   pool="${POOL:-rpool}"
