@@ -45,6 +45,6 @@ function main(){
 }
 
 
-if [[ "${0}" = "${BASH_SOURCE[0]}" ]] ; then
+if [[ "${0}" = "${BASH_SOURCE[0]:-0}" ]] ; then
   main "${@}"
 fi
