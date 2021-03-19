@@ -3,7 +3,7 @@
 # https://elrey.casa/bash/scripting/harden
 set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 
-# short url: https://git.io/JtV4t
+# short url: https://git.io/Jmr0j
 
 function get_git_root(){
   # https://stackoverflow.com/questions/957928/is-there-a-way-to-get-the-git-root-directory-in-one-command#answer-957978
