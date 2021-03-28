@@ -1,0 +1,36 @@
+import opml
+from typing import Optional,TextIO
+from pathlib import Path
+
+def get_feeds(opml_text: bytes, selected_shows: Optional[list] = None ) -> list:
+    opml_feeds = opml.from_string(opml_text)
+
+    filtered_feeds = []
+
+    if selected_shows:
+        first_obj = ''
+        for obj in selected_shows:
+            first_obj = obj
+        if first_obj != '':
+            opml_feeds = filter_shows( opml_feeds, selected_shows)
+
+    for feed in opml_feeds:
+        if feed.type == 'rss':
+            filtered_feeds.append(
+                {
+                    'feed_name': feed.title,
+                    'feed_url': feed.htmlUrl
+                }
+            )
+        else:
+            raise Exception("Your file had a non rss value.")
+        
+    return filtered_feeds
+
+def filter_shows(opml_list: list, selected_shows: list) -> list:
+    filtered_list = []
+    for feed in opml_list:
+        if feed.title in selected_shows:
+            filtered_list.append(feed)
+    
+    return filtered_list
