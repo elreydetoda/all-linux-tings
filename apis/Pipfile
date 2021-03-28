@@ -13,6 +13,7 @@ python-multipart = "*"
 # obj_stor layer
 boto3 = "*"
 requests = "*"
+rss-parser = "==0.1.1"
 
 [dev-packages]
 pylint = "*"

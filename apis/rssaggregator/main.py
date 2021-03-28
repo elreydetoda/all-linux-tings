@@ -8,9 +8,10 @@ from fastapi.params import File
 import opml
 from pydantic import BaseModel, HttpUrl
 from starlette.requests import Request
-import requests
+from requests import get as r_get
 import object_stor
 import opml_lib
+import rss_lib
 
 from uvicorn import run as uvi_run
 
@@ -42,7 +43,7 @@ class OpmlObj(BaseModel):
 async def opml_file_url(
             opml_obj: OpmlObj
         ):
-    opml_response = requests.get(opml_obj.opml_url)
+    opml_response = r_get(opml_obj.opml_url)
     rss_list = opml_lib.get_feeds(opml_response.content, opml_obj.selected_shows)
     return rss_list
 
