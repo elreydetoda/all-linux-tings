@@ -8,9 +8,8 @@ def get_feeds(opml_text: bytes, selected_shows: Optional[list] = None ) -> list:
     filtered_feeds = []
 
     if selected_shows:
-        first_obj = ''
-        for obj in selected_shows:
-            first_obj = obj
+        # https://stackoverflow.com/questions/59825/how-to-retrieve-an-element-from-a-set-without-removing-it#answer-59841
+        first_obj = next(iter(selected_shows))
         if first_obj != '':
             opml_feeds = filter_shows( opml_feeds, selected_shows)
 
