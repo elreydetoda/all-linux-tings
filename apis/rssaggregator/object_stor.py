@@ -51,7 +51,7 @@ def get_all(object_type: str) -> dict:
             obj_list.append(
                 {
                     'Name': obj_object['Key'],
-                    'LastModified': str(obj_object['LastModified'].replace(tzinfo=timezone.utc))
+                    'LastModified': str(obj_object['LastModified'].replace(tzinfo=timezone.utc)) # https://stackoverflow.com/questions/57308678/how-to-create-a-datetime-object-with-tzinfo-set-as-utc#answer-57309278
                 }
             )
     
