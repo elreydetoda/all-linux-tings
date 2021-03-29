@@ -11,6 +11,7 @@ from os import SEEK_SET
 from hashlib import md5
 from object_stor import check_md5sum, put_rss_bucket, get_access
 from parser_override import NewParser
+from generator_override import NewRSSFeed
 
 def get_feed_item_date(obj):
     obj.publish_date
@@ -88,7 +89,7 @@ def generate_rss_feed(rss_items: list) -> NewRSSResponse:
         'ttl': 30,
         'item': convert_to_new_rss_items(rss_items)
     }
-    return NewRssFeed(**feed_data)
+    return NewRSSFeed(**feed_data)
 
 def get_master_feed(rss_list: List[dict], force: bool) -> str:
 
@@ -104,11 +105,12 @@ def get_master_feed(rss_list: List[dict], force: bool) -> str:
         master_feed_list = merge_feeds( rss_list )
         master_feed_list.sort(key=get_feed_item_date, reverse=True)
         rss_feed = generate_rss_feed(master_feed_list)
-        tmp_file = NamedTemporaryFile()
-        tmp_file.write(rss_feed.tostring())
-        tmp_file.seek(SEEK_SET)
-        presigned = upload_rss_feed(feed_md5 ,tmp_file.read())
-        tmp_file.close()
+        presigned = upload_rss_feed(feed_md5 ,rss_feed.tostring())
+        # tmp_file = NamedTemporaryFile()
+        # tmp_file.write(rss_feed.tostring())
+        # tmp_file.seek(SEEK_SET)
+        # presigned = upload_rss_feed(feed_md5 ,tmp_file.read())
+        # tmp_file.close()
         return_item = {
             'url': "{}".format(presigned)
         }
