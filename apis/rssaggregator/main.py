@@ -56,6 +56,7 @@ async def opml_file(
         selected_shows = convert_form_str(selected_shows)
     opml_contents = await opml_file.read()
     rss_list = opml_lib.get_feeds(opml_contents, selected_shows)
+    rss_lib.get_master_feed(rss_list)
     return rss_list
 
 @app.get("/refresh")
