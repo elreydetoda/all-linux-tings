@@ -9,6 +9,7 @@ import opml
 from pydantic import BaseModel, HttpUrl
 from starlette.requests import Request
 from requests import get as r_get
+from hashlib import md5
 import object_stor
 import opml_lib
 import rss_lib
@@ -41,23 +42,27 @@ class OpmlObj(BaseModel):
 
 @app.post("/opml/")
 async def opml_file_url(
-            opml_obj: OpmlObj
+            opml_obj: OpmlObj,
+            force: Optional[bool] = False
         ):
     opml_response = r_get(opml_obj.opml_url)
     rss_list = opml_lib.get_feeds(opml_response.content, opml_obj.selected_shows)
-    return rss_list
+    rss_feed = rss_lib.get_master_feed(rss_list, force)
+    return rss_feed
 
 @app.post("/opml_file/")
 async def opml_file(
         opml_file: UploadFile = File(...),
-        selected_shows: Optional[List[str]] = []
+        selected_shows: Optional[List[str]] = [],
+        force: Optional[bool] = False
         ):
     if selected_shows:
         selected_shows = convert_form_str(selected_shows)
+    
     opml_contents = await opml_file.read()
     rss_list = opml_lib.get_feeds(opml_contents, selected_shows)
-    rss_lib.get_master_feed(rss_list)
-    return rss_list
+    rss_feed = rss_lib.get_master_feed(rss_list, force)
+    return rss_feed
 
 @app.get("/refresh")
 async def refresh_rss():

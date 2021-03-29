@@ -1,6 +1,9 @@
+from hashlib import md5
 import boto3
 from os import getenv
 from datetime import timezone
+
+from fastapi.params import Body
 
 # not passing creds, because of this: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html#environment-variables
 s3 = boto3.client('s3')
@@ -64,3 +67,36 @@ def get_bucket_info():
     bucket_init(bucket_info['bucket_name'])
 
     return bucket_info
+
+def put_rss_bucket(file_name: str, local_file_path: str) -> None:
+    bucket_info = get_bucket_info()
+    s3.put_object(
+        Body = local_file_path,
+        Bucket = bucket_info['bucket_name'],
+        Key = '{}{}'.format(rss_folder, file_name)
+    )
+
+def check_md5sum(md5_str: str) -> bool:
+    bucket_info = get_bucket_info()
+    try:
+        s3.get_object(
+            Bucket=bucket_info['bucket_name'],
+            Key = '{}{}'.format(rss_folder, md5_str)
+        )
+        return True
+    except s3.exceptions.NoSuchKey:
+        return False
+
+def get_access(file_name: str, expires: int = 3600) -> str:
+
+    bucket_info = get_bucket_info()
+
+    response = s3.generate_presigned_url(
+        'get_object',
+        Params={
+            'Bucket': bucket_info['bucket_name'],
+            'Key' : '{}{}'.format(rss_folder, file_name)
+            },
+        ExpiresIn=expires
+        )
+    return response
