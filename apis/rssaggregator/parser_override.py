@@ -44,7 +44,7 @@ class NewParser(Parser):
                     "link": item.link.text,
                     "publish_date": getattr(item.pubDate, "text", ""),
                     "category": getattr(item.category, "text", ""),
-                    "description": description_soup.text,
+                    "description": str(description_soup),
                     "description_links": [
                         anchor.get("href") for anchor in description_soup.findAll('a')
                         # if statement to avoid non true values in the list
