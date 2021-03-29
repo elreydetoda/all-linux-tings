@@ -74,7 +74,7 @@ def convert_to_new_rss_items(old_rss_items: list) -> List['NewRssItem']:
                 link=rss_item.link,
                 pub_date=rss_item.publish_date,
                 author=rss_item.category,
-                desciption=rss_item.description,
+                description=rss_item.description,
                 enclosure=rss_item.enclosure
             )
         )
