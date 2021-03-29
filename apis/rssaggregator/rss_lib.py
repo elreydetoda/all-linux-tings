@@ -10,6 +10,7 @@ from tempfile import NamedTemporaryFile
 from os import SEEK_SET
 from hashlib import md5
 from object_stor import check_md5sum, put_rss_bucket, get_access
+from parser_override import NewParser
 
 def get_feed_item_date(obj):
     obj.publish_date
@@ -33,7 +34,7 @@ def merge_feeds(rss_unmerged_list: List[dict]) -> List:
         # print(rss_feed['feed_url'])
         feed_contents = r_get(rss_feed['feed_url'], headers=headerz)
         # rss_parser._parser.Parser
-        parser = Parser(xml=feed_contents.content, limit=5)
+        parser = NewParser(xml=feed_contents.content, limit=5)
         # rss_parser.models.RSSFeed
         meta_feed = parser.parse()
         for feed_item in meta_feed.feed:
@@ -72,7 +73,8 @@ def convert_to_new_rss_items(old_rss_items: list) -> List['NewRssItem']:
                 link=rss_item.link,
                 pub_date=rss_item.publish_date,
                 author=rss_item.category,
-                desciption=rss_item.description
+                desciption=rss_item.description,
+                enclosure=rss_item.enclosure
             )
         )
     return new_rss_items
