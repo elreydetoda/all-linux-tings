@@ -17,6 +17,7 @@ def get_feed_item_date(obj):
 def merge_feeds(rss_unmerged_list: List[dict]) -> List:
     headerz= {
         # adding because some websites blocked python headers...
+        #   specifically s3daily
         'User-Agent': 'curl'
     }
 
