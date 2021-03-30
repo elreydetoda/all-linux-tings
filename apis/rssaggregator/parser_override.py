@@ -32,7 +32,7 @@ class NewRSSFeed(RSSFeed):
 class NewParser(Parser):
 
     @staticmethod
-    def check_none(item: object, default: str, item_dict: Optional[str], default_dict: Optional[str]):
+    def check_none(item: object, default: str, item_dict: Optional[str] = None, default_dict: Optional[str] = None):
         if item:
             return item[item_dict]
         else:
@@ -60,7 +60,7 @@ class NewParser(Parser):
             if item.enclosure:
                 item_dict = {
                     "title": item.title.text,
-                    "link": item.link.text,
+                    "link": getattr(item.link, "text",''),
                     "publish_date": getattr(item.pubDate, "text", ""),
                     "category": getattr(item.category, "text", ""),
                     "description": str(description_soup),
