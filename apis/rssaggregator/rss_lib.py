@@ -17,9 +17,15 @@ def get_feed_item_date(obj):
     obj.publish_date
     # %a, %d %b %Y %H:%M:%S%z
     rss_datetime_fmt='%a, %d %b %Y %H:%M:%S %z'
-    obj.publish_date = datetime.strptime(
-        obj.publish_date, rss_datetime_fmt
-        )
+    try:
+        obj.publish_date = datetime.strptime(
+            obj.publish_date, rss_datetime_fmt
+            )
+    except ValueError:
+        rss_datetime_fmt='%a, %d %b %Y %H:%M:%S %Z'
+        obj.publish_date = datetime.strptime(
+            obj.publish_date, rss_datetime_fmt
+            ).astimezone(timezone.utc)
     return obj.publish_date
 
 def merge_feeds(rss_unmerged_list: List[dict]) -> List:
