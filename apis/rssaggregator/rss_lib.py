@@ -35,7 +35,8 @@ def merge_feeds(rss_unmerged_list: List[dict]) -> List:
         # print(rss_feed['feed_url'])
         try:
             feed_contents = r_get(rss_feed['feed_url'], headers=headerz)
-        except:
+        except Exception as e:
+            print('WARNING:\n{}had the following error for url: {}\n: {}'.format(rss_feed['feed_name'], rss_feed['feed_url'], e))
             continue
         # rss_parser._parser.Parser
         parser = NewParser(xml=feed_contents.content, limit=5)
