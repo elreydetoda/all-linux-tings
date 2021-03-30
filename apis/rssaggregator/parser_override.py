@@ -6,6 +6,13 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
+class ItunesAttrs(BaseModel):
+    url: str
+
+class Itunes(BaseModel):
+    content: str
+    attrs: Optional[ItunesAttrs]
+
 class EnclosureAttrs(BaseModel):
     url: str
     length: int
@@ -17,11 +24,23 @@ class Enclosure(BaseModel):
 
 class NewFeedItem(FeedItem):
     enclosure: Optional[Enclosure]
+    itunes: Optional[Itunes]
 
 class NewRSSFeed(RSSFeed):
     feed: List[NewFeedItem]
 
 class NewParser(Parser):
+
+    @staticmethod
+    def check_none(item: object, default: str, item_dict: Optional[str], default_dict: Optional[str]):
+        if item:
+            return item[item_dict]
+        else:
+            if default_dict:
+                return default[default_dict]
+            else:
+                return default
+
     def parse(self) -> RSSFeed:
         main_soup = self.get_soup(self.xml)
         self.raw_data = {
@@ -61,6 +80,17 @@ class NewParser(Parser):
                                  'length': item.enclosure['length'] ,
                                  'type': item.enclosure['type']
                                 }
+                    },
+                    "itunes": {
+                        'content': '',
+                        'attrs': {
+                            'url': self.check_none(
+                                item.find("itunes:image"),
+                                main_soup.find("itunes:image"),
+                                'href',
+                                'href'
+                                )
+                        }
                     }
                 }
                 self.raw_data["feed"].append(item_dict)
