@@ -11,7 +11,7 @@ from os import SEEK_SET
 from hashlib import md5
 from object_stor import check_md5sum, put_rss_bucket, get_access
 from parser_override import NewParser
-from generator_override import NewRSSFeed
+from generator_override import NewRSSFeed, NewItem
 
 def get_feed_item_date(obj):
     obj.publish_date
@@ -69,13 +69,14 @@ def convert_to_new_rss_items(old_rss_items: list) -> List['NewRssItem']:
     new_rss_items = []
     for rss_item in old_rss_items:
         new_rss_items.append(
-            NewRssItem(
+            NewItem(
                 title=rss_item.title,
                 link=rss_item.link,
                 pub_date=rss_item.publish_date,
                 author=rss_item.category,
                 description=rss_item.description,
-                enclosure=rss_item.enclosure
+                enclosure=rss_item.enclosure,
+                itunes=rss_item.itunes
             )
         )
     return new_rss_items

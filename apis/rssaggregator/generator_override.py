@@ -52,6 +52,10 @@ class NewRSSFeed(RSSFeed):
                 else:
                     content = None
 
+                if key == 'itunes':
+                    element = etree.SubElement( root, '{http://www.itunes.com/dtds/podcast-1.0.dtd}image', attrs)
+                    continue
+
                 element = etree.SubElement(root, to_camelcase(key), attrs)
                 if content:
                     element.text = content
@@ -63,7 +67,21 @@ class NewRSSFeed(RSSFeed):
             element.text = str(value)
 
     def tostring(self):
-        rss = etree.Element('rss', version='2.0')
+        nsmap = {
+            'itunes': "http://www.itunes.com/dtds/podcast-1.0.dtd"
+        }
+        rss = etree.Element('rss', version='2.0', nsmap=nsmap)
         channel = etree.SubElement(rss, 'channel')
         NewRSSFeed.generate_tree(channel, self.dict())
         return etree.tostring(rss, pretty_print=True)
+
+class ItunesAttrs(BaseModel):
+    url: str
+
+class Itunes(BaseModel):
+    content: str
+    attrs: Optional[ItunesAttrs]
+
+
+class NewItem(Item):
+    itunes: Optional[Itunes]
