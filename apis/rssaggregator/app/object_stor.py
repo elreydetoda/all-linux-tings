@@ -35,6 +35,35 @@ def bucket_init(BucketName: str) -> None:
 def get_feed_date(obj):
     return obj['LastModified']
 
+def get_specific(object_md5sum: str) -> dict:
+
+    folders = [
+        rss_folder,
+        opml_folder
+    ]
+    object_md5sum = ''
+    bucket_info = get_bucket_info()
+    obj_response = s3.list_objects_v2(
+        Bucket=bucket_info['bucket_name'],
+        Prefix=obj_key
+        )
+    obj_contents = obj_response['Contents']
+
+    obj_list = []
+
+    for obj_object in obj_contents:
+        if obj_object['Key'] != obj_key:
+            obj_list.append(
+                {
+                    'Name': obj_object['Key'].split('/',1)[1],
+                    'LastModified': str(obj_object['LastModified'].replace(tzinfo=timezone.utc)) # https://stackoverflow.com/questions/57308678/how-to-create-a-datetime-object-with-tzinfo-set-as-utc#answer-57309278
+                }
+            )
+    
+    # TODO
+    # return obj_list.sort(key=get_feed_date)
+    return obj_list
+
 def get_all(object_type: str) -> dict:
 
     obj_key = ''
@@ -100,7 +129,7 @@ def check_md5sum(md5_str: str) -> bool:
     except s3.exceptions.NoSuchKey:
         return False
 
-def get_access(file_name: str, expires: int = 3600) -> str:
+def get_access(file_name: str, expires: int = 2592000) -> str:
 
     bucket_info = get_bucket_info()
 

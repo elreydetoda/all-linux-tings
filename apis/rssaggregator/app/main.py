@@ -68,8 +68,8 @@ async def opml_file(
     rss_feed = rss_lib.get_master_feed(rss_list, force)
     return rss_feed
 
-@app.get("/refresh")
-async def refresh_rss():
+@app.get("/refresh/{item_md5}")
+async def refresh_rss(item_md5: str):
     current_rss = ''
     return current_rss
 
