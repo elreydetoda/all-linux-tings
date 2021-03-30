@@ -33,7 +33,10 @@ def merge_feeds(rss_unmerged_list: List[dict]) -> List:
 
     for rss_feed in rss_unmerged_list:
         # print(rss_feed['feed_url'])
-        feed_contents = r_get(rss_feed['feed_url'], headers=headerz)
+        try:
+            feed_contents = r_get(rss_feed['feed_url'], headers=headerz)
+        except:
+            continue
         # rss_parser._parser.Parser
         parser = NewParser(xml=feed_contents.content, limit=5)
         # rss_parser.models.RSSFeed
