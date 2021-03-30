@@ -29,7 +29,11 @@ async def read_root(request: Request) -> dict:
 @app.get("/rss")
 async def list_rss() -> dict:
     all_items = object_stor.get_all('rss')
-    print(all_items)
+    return all_items
+
+@app.get("/opml")
+async def list_opml() -> dict:
+    all_items = object_stor.get_all('opml')
     return all_items
 
 @app.get("/rss/{rss_md5}")

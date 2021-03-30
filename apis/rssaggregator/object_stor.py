@@ -32,6 +32,9 @@ def bucket_init(BucketName: str) -> None:
                 Key = folder
             )
 
+def get_feed_date(obj):
+    return obj['LastModified']
+
 def get_all(object_type: str) -> dict:
 
     obj_key = ''
@@ -53,11 +56,13 @@ def get_all(object_type: str) -> dict:
         if obj_object['Key'] != obj_key:
             obj_list.append(
                 {
-                    'Name': obj_object['Key'],
+                    'Name': obj_object['Key'].split('/',1)[1],
                     'LastModified': str(obj_object['LastModified'].replace(tzinfo=timezone.utc)) # https://stackoverflow.com/questions/57308678/how-to-create-a-datetime-object-with-tzinfo-set-as-utc#answer-57309278
                 }
             )
     
+    # TODO
+    # return obj_list.sort(key=get_feed_date)
     return obj_list
 
 def get_bucket_info():
@@ -68,12 +73,20 @@ def get_bucket_info():
 
     return bucket_info
 
-def put_rss_bucket(file_name: str, local_file_path: str) -> None:
+def put_bucket(file_name: str, local_file_path: str, file_type: str) -> None:
+    folder = ''
+    if file_type == 'rss':
+        folder = rss_folder
+    elif file_type == 'opml':
+        folder = opml_folder
+    else:
+        raise ValueError("Only rss or opml are allowed")
+
     bucket_info = get_bucket_info()
     s3.put_object(
         Body = local_file_path,
         Bucket = bucket_info['bucket_name'],
-        Key = '{}{}'.format(rss_folder, file_name)
+        Key = '{}{}'.format(folder, file_name)
     )
 
 def check_md5sum(md5_str: str) -> bool:

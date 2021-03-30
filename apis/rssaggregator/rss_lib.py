@@ -9,7 +9,7 @@ from fastapi_rss.models import Item as NewRssItem
 from tempfile import NamedTemporaryFile
 from os import SEEK_SET
 from hashlib import md5
-from object_stor import check_md5sum, put_rss_bucket, get_access
+from object_stor import check_md5sum, put_bucket, get_access
 from parser_override import NewParser
 from generator_override import NewRSSFeed, NewItem
 
@@ -70,8 +70,8 @@ def generate_presigned_url(md5_string: str) -> str:
     presigned_url = get_access(md5_string)
     return presigned_url
 
-def upload_rss_feed(file_name: str, file_uploaded: str) -> str:
-    put_rss_bucket(file_name, file_uploaded)
+def upload_feed(file_name: str, file_uploaded: str, upload_type: str) -> str:
+    put_bucket(file_name, file_uploaded, upload_type)
     access_url = generate_presigned_url(file_name)
     return access_url
 
@@ -114,9 +114,11 @@ def get_master_feed(rss_list: List[dict], force: bool) -> str:
         }
     else:
         master_feed_list = merge_feeds( rss_list )
+        shows_name_list = [ curr_show['feed_name'] for curr_show in rss_list ]
+        upload_feed(feed_md5 , ''.join(shows_name_list).encode(), 'opml')
         master_feed_list.sort(key=get_feed_item_date, reverse=True)
         rss_feed = generate_rss_feed(master_feed_list)
-        presigned = upload_rss_feed(feed_md5 ,rss_feed.tostring())
+        presigned = upload_feed(feed_md5 ,rss_feed.tostring(), 'rss')
         # tmp_file = NamedTemporaryFile()
         # tmp_file.write(rss_feed.tostring())
         # tmp_file.seek(SEEK_SET)
