@@ -3,6 +3,8 @@ from typing import Optional,TextIO
 from pathlib import Path
 
 def get_feeds(opml_text: bytes, selected_shows: Optional[list] = None ) -> list:
+    if selected_shows:
+        print('These are the selected shows: {}'.format(', '.join(selected_shows)))
     opml_feeds = opml.from_string(opml_text)
 
     filtered_feeds = []
@@ -24,6 +26,8 @@ def get_feeds(opml_text: bytes, selected_shows: Optional[list] = None ) -> list:
         else:
             raise Exception("Your file had a non rss value.")
         
+    show_names = [ show['feed_name'] for show in filtered_feeds ]
+    print('This is the filtered show list: {}'.format(', '.join(show_names)))
     return filtered_feeds
 
 def filter_shows(opml_list: list, selected_shows: list) -> list:
