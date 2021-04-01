@@ -70,8 +70,8 @@ async def opml_file(
 
 @app.get("/refresh/{item_md5}")
 async def refresh_rss(item_md5: str):
-    current_rss = ''
-    return current_rss
+    print(object_stor.get_specific(item_md5))
+    return item_md5
 
 if __name__ == "__main__":
     uvi_run(app, host="0.0.0.0", port=8000)
