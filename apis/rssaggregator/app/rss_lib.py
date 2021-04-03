@@ -1,15 +1,14 @@
+from botocore import retries
 from rss_parser import Parser
 from requests import get as r_get
 from typing import List
 from datetime import datetime,timezone
-from rss_parser.models import FeedItem, RSSFeed
 from fastapi_rss.rss_response import RSSResponse as NewRSSResponse
-from fastapi_rss.models import RSSFeed as NewRssFeed, feed
 from fastapi_rss.models import Item as NewRssItem
-from tempfile import NamedTemporaryFile
 from os import SEEK_SET
 from hashlib import md5
-from object_stor import check_md5sum, put_bucket, get_access
+from object_stor import check_md5sum, generate_presigned_url, upload_feed, get_specific_obj
+from opml_lib import upload_opml
 from parser_override import NewParser
 from generator_override import NewRSSFeed, NewItem
 
@@ -53,7 +52,7 @@ def merge_feeds(rss_unmerged_list: List[dict]) -> List:
             feed_item.category = meta_feed.title
             rss_merged_list.append(feed_item)
     
-    return rss_merged_list
+    return rss_merged_list.sort(key=get_feed_item_date, reverse=True)
 
 def get_feed_md5(rss_list: List[dict]) -> str:
     sum_list = []
@@ -65,15 +64,6 @@ def get_feed_md5(rss_list: List[dict]) -> str:
 
 def check_exists(rss_md5: str) -> bool:
     return check_md5sum(rss_md5)
-
-def generate_presigned_url(md5_string: str) -> str:
-    presigned_url = get_access(md5_string)
-    return presigned_url
-
-def upload_feed(file_name: str, file_uploaded: str, upload_type: str) -> str:
-    put_bucket(file_name, file_uploaded, upload_type)
-    access_url = generate_presigned_url(file_name)
-    return access_url
 
 def convert_to_new_rss_items(old_rss_items: list) -> List['NewRssItem']:
     new_rss_items = []
@@ -115,10 +105,9 @@ def get_master_feed(rss_list: List[dict], force: bool) -> str:
     else:
         master_feed_list = merge_feeds( rss_list )
         shows_name_list = [ curr_show['feed_name'] for curr_show in rss_list ]
-        upload_feed(feed_md5 , ''.join(shows_name_list).encode(), 'opml')
-        master_feed_list.sort(key=get_feed_item_date, reverse=True)
+        upload_opml(feed_md5 , shows_name_list)
         rss_feed = generate_rss_feed(master_feed_list)
-        presigned = upload_feed(feed_md5 ,rss_feed.tostring(), 'rss')
+        presigned = upload_rss(feed_md5 ,rss_feed.tostring())
         # tmp_file = NamedTemporaryFile()
         # tmp_file.write(rss_feed.tostring())
         # tmp_file.seek(SEEK_SET)
@@ -128,3 +117,16 @@ def get_master_feed(rss_list: List[dict], force: bool) -> str:
             'url': "{}".format(presigned)
         }
     return return_item
+
+def upload_rss(md5_key: str, file_uploaded: str):
+    presigned_url = upload_feed(md5_key , file_uploaded, 'rss')
+    return presigned_url
+
+def get_rss(rss_path: str):
+    print(get_specific_obj(rss_path))
+    print(type(get_specific_obj(rss_path)))
+    return ''
+
+def update_feed(rss_path: str, rss_list: List[dict]) -> str:
+    get_rss(rss_path)
+    return ''

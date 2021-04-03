@@ -2,6 +2,7 @@ from hashlib import md5
 import boto3
 from os import getenv
 from datetime import timezone
+from typing import List
 
 from fastapi.params import Body
 
@@ -35,7 +36,7 @@ def bucket_init(BucketName: str) -> None:
 def get_feed_date(obj):
     return obj['LastModified']
 
-def get_specific(object_md5sum: str) -> dict:
+def get_refresh_items(object_md5sum: str) -> List[dict]:
 
     folders = [
         rss_folder,
@@ -66,6 +67,17 @@ def get_specific(object_md5sum: str) -> dict:
     # TODO
     # return obj_list.sort(key=get_feed_date)
     return obj_list
+
+# can return a string or list
+def get_specific_obj(path_str: str) -> bytes:
+    bucket_info = get_bucket_info()
+    retrieved_item = s3.get_object(
+            Bucket=bucket_info['bucket_name'],
+            Key=path_str
+            )
+        
+    # print(retrieved_item['Body'].read().decode())
+    return retrieved_item['Body'].read()
 
 def get_all(object_type: str) -> dict:
 
@@ -145,3 +157,12 @@ def get_access(file_name: str, expires: int = 2592000) -> str:
         ExpiresIn=expires
         )
     return response
+
+def upload_feed(file_name: str, file_uploaded, upload_type: str) -> str:
+    put_bucket(file_name, file_uploaded, upload_type)
+    access_url = generate_presigned_url(file_name)
+    return access_url
+
+def generate_presigned_url(md5_string: str) -> str:
+    presigned_url = get_access(md5_string)
+    return presigned_url

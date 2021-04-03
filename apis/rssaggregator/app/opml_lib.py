@@ -1,6 +1,10 @@
+from hashlib import md5
 import opml
-from typing import Optional,TextIO
+from typing import Optional,TextIO,List
 from pathlib import Path
+from pickle import dumps as p_dumps
+from pickle import loads as p_loads
+from object_stor import upload_feed, get_specific_obj
 
 def get_feeds(opml_text: bytes, selected_shows: Optional[list] = None ) -> list:
     if selected_shows:
@@ -37,3 +41,10 @@ def filter_shows(opml_list: list, selected_shows: list) -> list:
             filtered_list.append(feed)
     
     return filtered_list
+
+def upload_opml(md5_key: str, show_list: list) -> str:
+    presigned_url = upload_feed(md5_key , p_dumps(show_list), 'opml')
+    return presigned_url
+
+def get_opml(opml_path: str) -> List[str]:
+    return p_loads(get_specific_obj(opml_path))

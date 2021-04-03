@@ -70,7 +70,22 @@ async def opml_file(
 
 @app.get("/refresh/{item_md5}")
 async def refresh_rss(item_md5: str):
-    print(object_stor.get_specific(item_md5))
+    existing_info = object_stor.get_refresh_items(item_md5)
+
+    rss_path = ''
+    opml_path = ''
+
+    if existing_info:
+        for info in existing_info:
+            if 'rss' in info['Name']:
+                rss_path = info['Name']
+            elif 'opml' in info['Name']:
+                opml_path = info['Name']
+            else:
+                raise ValueError("apparently something exists, but doesn't have opml or rss: {}".format(info))
+    
+    rss_list = opml_lib.get_opml(opml_path)
+    rss_lib.update_feed(rss_path, rss_list)
     return item_md5
 
 if __name__ == "__main__":
