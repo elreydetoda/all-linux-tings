@@ -1,4 +1,5 @@
 from botocore import retries
+from requests.api import get
 from rss_parser import Parser
 from requests import get as r_get
 from typing import List
@@ -10,6 +11,7 @@ from hashlib import md5
 from object_stor import check_md5sum, generate_presigned_url, upload_feed, get_specific_obj
 from opml_lib import upload_opml
 from parser_override import NewParser
+from parser_override import NewRSSFeed as NewParserRSSFeed
 from generator_override import NewRSSFeed, NewItem
 
 def get_feed_item_date(obj):
@@ -27,32 +29,46 @@ def get_feed_item_date(obj):
             ).astimezone(timezone.utc)
     return obj.publish_date
 
-def merge_feeds(rss_unmerged_list: List[dict]) -> List:
+def merge_remote_feeds(rss_unmerged_list: List[dict], rss_merged_list: list = []) -> List:
+
+    for rss_feed in rss_unmerged_list:
+
+        feed_contents = get_feed_contents(rss_feed['feed_url'])
+
+        if feed_contents:
+            rss_merged_list.extend(
+                merge_feeds(
+                    feed_contents.content, 5
+                    )
+                )
+    
+    return rss_merged_list.sort(key=get_feed_item_date, reverse=True)
+
+def get_feed_contents(feed_url: str):
     headerz= {
         # adding because some websites blocked python headers...
         #   specifically s3daily
         'User-Agent': 'curl'
     }
+    # print(rss_feed['feed_url'])
+    try:
+        feed_contents = r_get(feed_url, headers=headerz)
+        return feed_contents
+    except Exception as e:
+        print('WARNING:\n{}had the following error for url: {}\n: {}'.format(rss_feed['feed_name'], rss_feed['feed_url'], e))
+        return None
 
-    rss_merged_list = []
-
-    for rss_feed in rss_unmerged_list:
-        # print(rss_feed['feed_url'])
-        try:
-            feed_contents = r_get(rss_feed['feed_url'], headers=headerz)
-        except Exception as e:
-            print('WARNING:\n{}had the following error for url: {}\n: {}'.format(rss_feed['feed_name'], rss_feed['feed_url'], e))
-            continue
-        # rss_parser._parser.Parser
-        parser = NewParser(xml=feed_contents.content, limit=5)
-        # rss_parser.models.RSSFeed
-        meta_feed = parser.parse()
-        for feed_item in meta_feed.feed:
-            # rss_parser.models.FeedItem
-            feed_item.category = meta_feed.title
-            rss_merged_list.append(feed_item)
-    
-    return rss_merged_list.sort(key=get_feed_item_date, reverse=True)
+def merge_feeds(rss_string: str, limit: int = None) -> list:
+    return_list = []
+    # rss_parser._parser.Parser
+    parser = NewParser(xml=rss_string, limit=limit)
+    # rss_parser.models.RSSFeed
+    meta_feed = parser.parse()
+    for feed_item in meta_feed.feed:
+        # rss_parser.models.FeedItem
+        feed_item.category = meta_feed.title
+        return_list.append(feed_item)
+    return return_list
 
 def get_feed_md5(rss_list: List[dict]) -> str:
     sum_list = []
@@ -81,10 +97,10 @@ def convert_to_new_rss_items(old_rss_items: list) -> List['NewRssItem']:
         )
     return new_rss_items
 
-def generate_rss_feed(rss_items: list) -> NewRSSResponse:
+def generate_rss_feed(rss_items: List[NewParserRSSFeed]) -> NewRSSResponse:
     feed_data = {
         'title': "Alex's Master Feed",
-        'link': '',
+        'link': 'https://elrey.casa/blog',
         'description': 'All my favorite rss feeds into one',
         'last_build_date': datetime.now(tz=timezone.utc).isoformat(),
         'ttl': 30,
@@ -103,16 +119,11 @@ def get_master_feed(rss_list: List[dict], force: bool) -> str:
             'url': presigned
         }
     else:
-        master_feed_list = merge_feeds( rss_list )
+        master_feed_list = merge_remote_feeds( rss_list )
         shows_name_list = [ curr_show['feed_name'] for curr_show in rss_list ]
         upload_opml(feed_md5 , shows_name_list)
         rss_feed = generate_rss_feed(master_feed_list)
         presigned = upload_rss(feed_md5 ,rss_feed.tostring())
-        # tmp_file = NamedTemporaryFile()
-        # tmp_file.write(rss_feed.tostring())
-        # tmp_file.seek(SEEK_SET)
-        # presigned = upload_rss_feed(feed_md5 ,tmp_file.read())
-        # tmp_file.close()
         return_item = {
             'url': "{}".format(presigned)
         }
