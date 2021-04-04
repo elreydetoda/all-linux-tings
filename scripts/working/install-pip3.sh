@@ -9,6 +9,9 @@ set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 function deps_install(){
 
   install_cmd=()
+  # setting this, because pip comes pre-installed when installing
+  #   python3 on rhel based distros
+  needed=true
 
   if [[ "${EUID}" -ne 0 ]]; then
     install_cmd+=('sudo')
@@ -35,6 +38,14 @@ function deps_install(){
       package_manager='dnf'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=()
+      needed=false
+      ;;
+    *fedora*)
+      packages+=()
+      package_manager='dnf'
+      package_manager_install_cmd=('install' '-y')
+      package_manager_update_cmd=()
+      needed=false
       ;;
     *)
       echo "This script doesn't officially support your distro"
@@ -105,7 +116,9 @@ function main(){
   # check_os
   # install_deps
   deps_install
-  install_pip3
+  if [[ "${needed}" == 'true' ]] ; then
+    install_pip3
+  fi
 }
 
 
