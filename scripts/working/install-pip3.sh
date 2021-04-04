@@ -34,14 +34,14 @@ function deps_install(){
       package_manager_update_cmd=()
       ;;
     *rhel*)
-      packages+=()
+      packages+=( 'python3' )
       package_manager='dnf'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=()
       needed=false
       ;;
     *fedora*)
-      packages+=()
+      packages+=( 'python3' )
       package_manager='dnf'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=()
