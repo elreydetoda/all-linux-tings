@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# short url: https://git.io/JYjuQ
+
 # https://elrey.casa/bash/scripting/harden
 set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 
