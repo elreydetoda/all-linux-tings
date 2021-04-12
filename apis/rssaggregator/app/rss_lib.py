@@ -15,7 +15,6 @@ from parser_override import NewRSSFeed as NewParserRSSFeed
 from generator_override import NewRSSFeed, NewItem
 
 def get_feed_item_date(obj):
-    obj.publish_date
     # %a, %d %b %Y %H:%M:%S%z
     rss_datetime_fmt='%a, %d %b %Y %H:%M:%S %z'
     try:
@@ -41,8 +40,8 @@ def merge_remote_feeds(rss_unmerged_list: List[dict], rss_merged_list: list = []
                     feed_contents.content, 5
                     )
                 )
-    
-    return rss_merged_list.sort(key=get_feed_item_date, reverse=True)
+    rss_merged_list.sort(key=get_feed_item_date, reverse=True)
+    return rss_merged_list
 
 def get_feed_contents(feed_url: str):
     headerz= {
@@ -55,7 +54,7 @@ def get_feed_contents(feed_url: str):
         feed_contents = r_get(feed_url, headers=headerz)
         return feed_contents
     except Exception as e:
-        print('WARNING:\n{}had the following error for url: {}\n: {}'.format(rss_feed['feed_name'], rss_feed['feed_url'], e))
+        print('WARNING:\nhad the following error for url: {}\n: {}'.format(feed_url, e))
         return None
 
 def merge_feeds(rss_string: str, limit: int = None) -> list:
@@ -139,5 +138,6 @@ def get_rss(rss_path: str):
     return ''
 
 def update_feed(rss_path: str, rss_list: List[dict]) -> str:
-    get_rss(rss_path)
+    # get_rss(rss_path)
+    print(rss_list)
     return ''

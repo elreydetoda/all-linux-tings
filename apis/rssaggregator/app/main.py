@@ -83,6 +83,8 @@ async def refresh_rss(item_md5: str):
                 opml_path = info['Name']
             else:
                 raise ValueError("apparently something exists, but doesn't have opml or rss: {}".format(info))
+    else:
+        return {'msg': "Item {}, doens't appear to exist".format(item_md5)}
     
     rss_list = opml_lib.get_opml(opml_path)
     rss_lib.update_feed(rss_path, rss_list)
