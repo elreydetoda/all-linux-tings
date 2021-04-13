@@ -11,8 +11,6 @@ from os import SEEK_SET
 from hashlib import md5
 from object_stor import check_md5sum, generate_presigned_url, upload_feed, get_specific_obj
 from opml_lib import upload_opml
-#  from parser_override import NewParser
-#  from parser_override import NewRSSFeed as NewParserRSSFeed
 from generator_override import NewRSSFeed, NewItem
 
 def get_feed_item_date(obj):
