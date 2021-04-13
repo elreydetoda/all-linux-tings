@@ -7,7 +7,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 class ItunesAttrs(BaseModel):
-    url: str
+    href: str
 
 class Itunes(BaseModel):
     content: str
@@ -25,6 +25,13 @@ class Enclosure(BaseModel):
 class NewFeedItem(FeedItem):
     enclosure: Optional[Enclosure]
     itunes: Optional[Itunes]
+
+    # https://stackoverflow.com/questions/10994229/how-to-make-an-object-properly-hashable#answer-38259091
+    def __hash__(self):
+        return hash(self.title.strip())
+
+    def __eq__(self,other):
+        return self.title.strip() == other.title.strip()
 
 class NewRSSFeed(RSSFeed):
     feed: List[NewFeedItem]
@@ -84,7 +91,7 @@ class NewParser(Parser):
                     "itunes": {
                         'content': '',
                         'attrs': {
-                            'url': self.check_none(
+                            'href': self.check_none(
                                 item.find("itunes:image"),
                                 main_soup.find("itunes:image"),
                                 'href',

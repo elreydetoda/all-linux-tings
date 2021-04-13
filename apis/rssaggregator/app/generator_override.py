@@ -76,7 +76,7 @@ class NewRSSFeed(RSSFeed):
         return etree.tostring(rss, pretty_print=True)
 
 class ItunesAttrs(BaseModel):
-    url: str
+    href: str
 
 class Itunes(BaseModel):
     content: str
