@@ -31,14 +31,18 @@ async def list_rss() -> dict:
     all_items = object_stor.get_all('rss')
     return all_items
 
+@app.get("/rss/{rss_md5}")
+async def get_rss_specific_feed(rss_md5: str):
+    return rss_lib.get_rss(rss_md5)
+
 @app.get("/opml")
 async def list_opml() -> dict:
     all_items = object_stor.get_all('opml')
     return all_items
 
-@app.get("/rss/{rss_md5}")
-async def get_rss_specific_feed(rss_md5: str):
-    return {"item_id": rss_md5}
+@app.get("/opml/{rss_md5}")
+async def get_opml_specific_feed(opml_md5: str):
+    return opml_lib.get_opml(opml_md5)
 
 class OpmlObj(BaseModel):
     opml_url: HttpUrl
