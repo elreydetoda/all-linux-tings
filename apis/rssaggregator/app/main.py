@@ -87,8 +87,8 @@ async def refresh_rss(item_md5: str):
         return {'msg': "Item {}, doens't appear to exist".format(item_md5)}
     
     rss_list = opml_lib.get_opml(opml_path)
-    rss_lib.update_feed(rss_path, rss_list)
-    return item_md5
+    rss_feed = rss_lib.update_feed(item_md5, rss_path, rss_list)
+    return rss_feed
 
 if __name__ == "__main__":
     uvi_run(app, host="0.0.0.0", port=8000)

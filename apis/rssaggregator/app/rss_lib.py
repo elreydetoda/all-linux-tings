@@ -26,22 +26,27 @@ def get_feed_item_date(obj):
         obj.publish_date = datetime.strptime(
             obj.publish_date, rss_datetime_fmt
             ).astimezone(timezone.utc)
+    except TypeError:
+        print(obj.publish_date)
+        print(type(obj.publish_date))
+        raise("I don't know what happened...")
     return obj.publish_date
 
-def merge_remote_feeds(rss_unmerged_list: List[dict], rss_merged_list: list = []) -> List:
+def merge_remote_feeds(rss_unmerged_list: List[dict], rss_merged_list: set = set()) -> List:
 
     for rss_feed in rss_unmerged_list:
 
         feed_contents = get_feed_contents(rss_feed['feed_url'])
 
         if feed_contents:
-            rss_merged_list.extend(
+            rss_merged_list.update(
                 merge_feeds(
                     feed_contents.content, 5
                     )
                 )
-    rss_merged_list.sort(key=get_feed_item_date, reverse=True)
-    return rss_merged_list
+    returned_list = list(rss_merged_list)
+    returned_list.sort(key=get_feed_item_date, reverse=True)
+    return returned_list
 
 def get_feed_contents(feed_url: str):
     headerz= {
@@ -107,7 +112,7 @@ def generate_rss_feed(rss_items: List[NewParserRSSFeed]) -> NewRSSResponse:
     }
     return NewRSSFeed(**feed_data)
 
-def get_master_feed(rss_list: List[dict], force: bool) -> str:
+def get_master_feed(rss_list: List[dict], force: bool) -> dict:
 
     return_item = {}
     feed_md5 = get_feed_md5(rss_list)
@@ -119,11 +124,11 @@ def get_master_feed(rss_list: List[dict], force: bool) -> str:
         }
     else:
         master_feed_list = merge_remote_feeds( rss_list )
-        shows_name_list = [ curr_show['feed_name'] for curr_show in rss_list ]
-        upload_opml(feed_md5 , shows_name_list)
+        upload_opml(feed_md5 , rss_list)
         rss_feed = generate_rss_feed(master_feed_list)
         presigned = upload_rss(feed_md5 ,rss_feed.tostring())
         return_item = {
+            'msg': 'Created rss feed.',
             'url': "{}".format(presigned)
         }
     return return_item
@@ -133,11 +138,16 @@ def upload_rss(md5_key: str, file_uploaded: str):
     return presigned_url
 
 def get_rss(rss_path: str):
-    print(get_specific_obj(rss_path))
-    print(type(get_specific_obj(rss_path)))
-    return ''
+    return get_specific_obj(rss_path)
 
-def update_feed(rss_path: str, rss_list: List[dict]) -> str:
-    # get_rss(rss_path)
-    print(rss_list)
-    return ''
+def update_feed(feed_md5: str, rss_path: str, rss_list: List[dict]) -> dict:
+    updated_feed_list = []
+    updated_feed_list.extend(merge_feeds(get_rss(rss_path).decode()))
+    updated_feed_list = merge_remote_feeds(rss_list, set(updated_feed_list))
+    rss_feed = generate_rss_feed(updated_feed_list)
+    presigned = upload_rss(feed_md5 ,rss_feed.tostring())
+    return_item = {
+        'msg': 'Updated rss feed.',
+        'url': "{}".format(presigned)
+    }
+    return return_item
