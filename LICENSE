@@ -1,3 +1,19 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Source: https://github.com/elreydetoda/all-linux-tings
+
+# templating for license followed by: https://github.com/rapid7/metasploitable3/blob/9f13ad3a569c35433e9ea8a4079fb264b605bfbb/LICENSE#L1
+
+Files: *
+License: LGPL-3.0
+
+# since I use the rss-parser as a library, this also has to be GPL-3
+Files: apis/rssaggregator/app/
+Copyright: 2021, Alexey ( dhvcc ) <1337kwiz@gmail.com>
+License: GPL-3
+ https://github.com/dhvcc/rss-parser/blob/a6bdb7867a5dda02b2c724fe0bccdb701144832e/LICENSE
+
+
+
                    GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
