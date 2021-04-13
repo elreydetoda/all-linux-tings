@@ -9,7 +9,7 @@ License: LGPL-3.0
 # since I use the rss-parser as a library, this also has to be GPL-3
 Files: apis/rssaggregator/app/
 Copyright: 2021, Alexey ( dhvcc ) <1337kwiz@gmail.com>
-License: GPL-3
+License: GPLv3
  https://github.com/dhvcc/rss-parser/blob/a6bdb7867a5dda02b2c724fe0bccdb701144832e/LICENSE
 
 
