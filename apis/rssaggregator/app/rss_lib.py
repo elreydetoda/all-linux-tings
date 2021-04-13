@@ -1,6 +1,7 @@
 from botocore import retries
 from requests.api import get
 from rss_parser import Parser
+from rss_parser.models import RSSFeed
 from requests import get as r_get
 from typing import List
 from datetime import datetime,timezone
@@ -10,8 +11,8 @@ from os import SEEK_SET
 from hashlib import md5
 from object_stor import check_md5sum, generate_presigned_url, upload_feed, get_specific_obj
 from opml_lib import upload_opml
-from parser_override import NewParser
-from parser_override import NewRSSFeed as NewParserRSSFeed
+#  from parser_override import NewParser
+#  from parser_override import NewRSSFeed as NewParserRSSFeed
 from generator_override import NewRSSFeed, NewItem
 
 def get_feed_item_date(obj):
@@ -65,7 +66,7 @@ def get_feed_contents(feed_url: str):
 def merge_feeds(rss_string: str, limit: int = None) -> list:
     return_list = []
     # rss_parser._parser.Parser
-    parser = NewParser(xml=rss_string, limit=limit)
+    parser = Parser(xml=rss_string, limit=limit)
     # rss_parser.models.RSSFeed
     meta_feed = parser.parse()
     for feed_item in meta_feed.feed:
@@ -101,7 +102,7 @@ def convert_to_new_rss_items(old_rss_items: list) -> List['NewRssItem']:
         )
     return new_rss_items
 
-def generate_rss_feed(rss_items: List[NewParserRSSFeed]) -> NewRSSResponse:
+def generate_rss_feed(rss_items: List[RSSFeed]) -> NewRSSResponse:
     feed_data = {
         'title': "Alex's Master Feed",
         'link': 'https://elrey.casa/blog',
@@ -143,7 +144,9 @@ def get_rss(rss_path: str):
 def update_feed(feed_md5: str, rss_path: str, rss_list: List[dict]) -> dict:
     updated_feed_list = []
     updated_feed_list.extend(merge_feeds(get_rss(rss_path).decode()))
+    print('before update number: {}'.format(len(updated_feed_list)))
     updated_feed_list = merge_remote_feeds(rss_list, set(updated_feed_list))
+    print('after update number: {}'.format(len(updated_feed_list)))
     rss_feed = generate_rss_feed(updated_feed_list)
     presigned = upload_rss(feed_md5 ,rss_feed.tostring())
     return_item = {
