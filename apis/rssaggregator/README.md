@@ -2,8 +2,8 @@
 
 ## Credits
 
-rss parser: <https://github.com/dhvcc/rss-parser>
-rss generator: <https://github.com/Dogeek/fastapi_rss/>
+- rss parser: <https://github.com/dhvcc/rss-parser>
+- rss generator: <https://github.com/Dogeek/fastapi_rss/>
 
 ## Temp Docs
 

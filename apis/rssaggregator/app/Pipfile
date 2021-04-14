@@ -4,17 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+# needed for fastapi in general
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+# used to generate rss feed
 fastapi-rss = "==0.1.3"
+# used to parse opml file
 opml = "==0.5"
-# because of file submission
+# because of fastapi file submission
 python-multipart = "*"
 # obj_stor layer
 boto3 = "*"
+# used to retrieve rss feeds
 requests = "*"
+# used to parse retrieved feeds
 rss-parser = "==0.1.1"
-#lxml = ">=4.6.3"
 
 [dev-packages]
 pylint = "*"
