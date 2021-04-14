@@ -18,7 +18,9 @@ boto3 = "*"
 # used to retrieve rss feeds
 requests = "*"
 # used to parse retrieved feeds
-rss-parser = "==0.1.1"
+rss-parser = "==0.2.2"
+# https://github.com/dhvcc/rss-parser/issues/6
+lxml = ">=4.6.3"
 
 [dev-packages]
 pylint = "*"
