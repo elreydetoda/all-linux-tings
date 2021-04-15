@@ -4,6 +4,8 @@
 
 - rss parser: <https://github.com/dhvcc/rss-parser>
 - rss generator: <https://github.com/Dogeek/fastapi_rss/>
+- opml parser: <https://pypi.org/project/opml/>
+- fastapi: <https://github.com/tiangolo/fastapi> ⬅️ thanks to [@CoderRadioShow](https://twitter.com/CoderRadioShow) for mentioning this :grin: , made life a lot easier 😁
 
 ## Temp Docs
 
