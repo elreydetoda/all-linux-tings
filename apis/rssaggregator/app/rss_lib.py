@@ -1,6 +1,6 @@
 from botocore import retries
 from requests.api import get
-from rss_parser import Parser
+# from rss_parser import Parser
 from rss_parser.models import RSSFeed
 from requests import get as r_get
 from typing import List
@@ -12,6 +12,7 @@ from hashlib import md5
 from object_stor import check_md5sum, generate_presigned_url, upload_feed, get_specific_obj
 from opml_lib import upload_opml
 from generator_override import NewRSSFeed, NewItem
+from parser_override import NewParser as Parser
 
 def get_feed_item_date(obj):
     # %a, %d %b %Y %H:%M:%S%z
