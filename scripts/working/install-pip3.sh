@@ -115,9 +115,19 @@ function install_pip3(){
 function main(){
   # check_os
   # install_deps
-  deps_install
-  if [[ "${needed}" == 'true' ]] ; then
-    install_pip3
+  if command -v pip3 ; then
+    echo "You already have pip installed"
+    exit 0
+  elif [[ "${1:-}" == '-f' ]] || [[ "${1:-}" == '--force' ]] ; then
+    deps_install
+    if [[ "${needed}" == 'true' ]] ; then
+      install_pip3
+    fi
+  else
+    deps_install
+    if [[ "${needed}" == 'true' ]] ; then
+      install_pip3
+    fi
   fi
 }
 
