@@ -17,6 +17,8 @@ function write_out_file(){
 # https://elrey.casa/bash/scripting/harden
 set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 
+# short url: 
+
 function main(){
   your_function_here
 }
