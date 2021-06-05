@@ -10,7 +10,7 @@ function get_latest_version(){
 }
 
 function download_latest(){
-  install <(curl -fsSLo - "${release_url}/download/${latest_version}/${file_to_download}") /usr/local/bin/docker-compose
+  install <(curl -fsSLo - "${release_url}/download/${latest_version}/${file_to_download}") /usr/local/bin/terragrunt
 }
 
 # http://elrey.casa/bash/scripting/main
