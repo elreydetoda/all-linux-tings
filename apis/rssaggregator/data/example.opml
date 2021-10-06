@@ -5,7 +5,11 @@
             <title>Castbox Subscriptions</title>
         </head>
         <body>
-            <outline text="Cloud Posse DevOps &quot;Office Hours&quot; Podcast" title="Cloud Posse DevOps &quot;Office Hours&quot; Podcast" type="rss" htmlUrl="https://feeds.buzzsprout.com/780593.rss" xmlUrl="https://feeds.buzzsprout.com/780593.rss" />
+            <outline text="Destination Linux Network: All Shows" title="Destination Linux Network: All Shows" type="rss" htmlUrl="https://destinationlinux.network/feed/allshows" xmlUrl="https://destinationlinux.network/feed/allshows" />
+        <outline text="The voices of infosec podcast" title="The voices of infosec podcast" type="rss" htmlUrl="https://thevoicesofinfosec.nviso.eu/feed/podcast" xmlUrl="https://thevoicesofinfosec.nviso.eu/feed/podcast" />
+        <outline text="The Homelab Show" title="The Homelab Show" type="rss" htmlUrl="http://thehomelab.show/feed/podcast" xmlUrl="http://thehomelab.show/feed/podcast" />
+        <outline text="Alex&apos;s Master Feed" title="Alex&apos;s Master Feed" type="rss" htmlUrl="http://elrey.casa/personal_podcasts/favorites" xmlUrl="http://elrey.casa/personal_podcasts/favorites" />
+        <outline text="Cloud Posse DevOps &quot;Office Hours&quot; Podcast" title="Cloud Posse DevOps &quot;Office Hours&quot; Podcast" type="rss" htmlUrl="https://feeds.buzzsprout.com/780593.rss" xmlUrl="https://feeds.buzzsprout.com/780593.rss" />
         <outline text="Cortex" title="Cortex" type="rss" htmlUrl="https://www.relay.fm/cortex/feed" xmlUrl="https://www.relay.fm/cortex/feed" />
         <outline text="The Opinion Dominion" title="The Opinion Dominion" type="rss" htmlUrl="https://feeds.fireside.fm/theopiniondominion/rss" xmlUrl="https://feeds.fireside.fm/theopiniondominion/rss" />
         <outline text="Open Source Voices" title="Open Source Voices" type="rss" htmlUrl="https://feeds.fireside.fm/opensourcevoices/rss" xmlUrl="https://feeds.fireside.fm/opensourcevoices/rss" />
@@ -66,7 +70,7 @@
         <outline text="Choose Linux" title="Choose Linux" type="rss" htmlUrl="https://feeds.fireside.fm/chooselinux/rss" xmlUrl="https://feeds.fireside.fm/chooselinux/rss" />
         <outline text="BSD Now" title="BSD Now" type="rss" htmlUrl="https://feeds.fireside.fm/bsdnow/rss" xmlUrl="https://feeds.fireside.fm/bsdnow/rss" />
         <outline text="The Christy Wright Show" title="The Christy Wright Show" type="rss" htmlUrl="http://businessboutique.ramsey.libsynpro.com/rss" xmlUrl="http://businessboutique.ramsey.libsynpro.com/rss" />
-        <outline text="The Chris Hogan Show" title="The Chris Hogan Show" type="rss" htmlUrl="http://chrishogan.ramsey.libsynpro.com/itunes" xmlUrl="http://chrishogan.ramsey.libsynpro.com/itunes" />
+        <outline text="Ramsey Everyday Millionaires" title="Ramsey Everyday Millionaires" type="rss" htmlUrl="http://chrishogan.ramsey.libsynpro.com/itunes" xmlUrl="http://chrishogan.ramsey.libsynpro.com/itunes" />
         <outline text="The Ramsey Show" title="The Ramsey Show" type="rss" htmlUrl="http://daveramsey.ramsey.libsynpro.com/rss" xmlUrl="http://daveramsey.ramsey.libsynpro.com/rss" />
         <outline text="Martech Zone Interviews" title="Martech Zone Interviews" type="rss" htmlUrl="https://podcast.martech.zone/" xmlUrl="https://podcast.martech.zone/" />
         <outline text="The MarTech Wiz Podcast" title="The MarTech Wiz Podcast" type="rss" htmlUrl="https://www.martechwiz.com/feed/podcast/" xmlUrl="https://www.martechwiz.com/feed/podcast/" />
@@ -78,7 +82,7 @@
         <outline text="Arrested DevOps" title="Arrested DevOps" type="rss" htmlUrl="https://www.arresteddevops.com/episode/index.xml" xmlUrl="https://www.arresteddevops.com/episode/index.xml" />
         <outline text="DevOps on AWS Radio" title="DevOps on AWS Radio" type="rss" htmlUrl="http://feeds.soundcloud.com/users/soundcloud:users:232756869/sounds.rss" xmlUrl="http://feeds.soundcloud.com/users/soundcloud:users:232756869/sounds.rss" />
         <outline text="TrustedSec Security Podcast" title="TrustedSec Security Podcast" type="rss" htmlUrl="http://trustedsec.libsyn.com/rss" xmlUrl="http://trustedsec.libsyn.com/rss" />
-        <outline text="The CyberWire Daily" title="The CyberWire Daily" type="rss" htmlUrl="http://thecyberwire.libsyn.com/rss" xmlUrl="http://thecyberwire.libsyn.com/rss" />
+        <outline text="CyberWire Daily" title="CyberWire Daily" type="rss" htmlUrl="http://thecyberwire.libsyn.com/rss" xmlUrl="http://thecyberwire.libsyn.com/rss" />
         <outline text="Darknet Diaries" title="Darknet Diaries" type="rss" htmlUrl="https://feeds.megaphone.fm/darknetdiaries" xmlUrl="https://feeds.megaphone.fm/darknetdiaries" />
         <outline text="Voices from DARPA" title="Voices from DARPA" type="rss" htmlUrl="https://feeds.blubrry.com/feeds/voices_from_darpa.xml" xmlUrl="https://feeds.blubrry.com/feeds/voices_from_darpa.xml" />
         <outline text="Ubuntu Security Podcast" title="Ubuntu Security Podcast" type="rss" htmlUrl="https://ubuntusecuritypodcast.org/episode/index.xml" xmlUrl="https://ubuntusecuritypodcast.org/episode/index.xml" />
