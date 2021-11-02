@@ -3,7 +3,7 @@
 # http://elrey.casa/bash/scripting/harden
 set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 
-# 
+# short url: https://git.io/JPD4v
 
 function get_latest_version(){
 
