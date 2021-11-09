@@ -10,7 +10,7 @@ function get_latest_version(){
 }
 
 function download_latest(){
-  install <(curl -fsSLo - "${release_url}/download/${latest_version}/${file_to_download}") /usr/local/bin/docker-compose
+  install <(curl -fsSLo - "${release_url}/download/v${latest_version}/${file_to_download}") /usr/local/bin/docker-compose
 }
 
 # http://elrey.casa/bash/scripting/main
@@ -19,7 +19,7 @@ function main(){
   repo_url="${base_url}/docker/compose"
   release_url="${repo_url}/releases"
   latest_url="${release_url}/latest"
-  file_to_download="docker-compose-$(uname -s)-$(uname -m)"
+  file_to_download="docker-compose-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)"
 
   get_latest_version
   download_latest
