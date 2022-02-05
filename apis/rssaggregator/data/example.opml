@@ -5,14 +5,26 @@
             <title>Castbox Subscriptions</title>
         </head>
         <body>
-            <outline text="Destination Linux Network: All Shows" title="Destination Linux Network: All Shows" type="rss" htmlUrl="https://destinationlinux.network/feed/allshows" xmlUrl="https://destinationlinux.network/feed/allshows" />
+            <outline text="Destination Linux Network: All Shows" title="Destination Linux Network: All Shows" type="rss" htmlUrl="https://markcain.com/dln_feed/all_podcasts.xml" xmlUrl="https://markcain.com/dln_feed/all_podcasts.xml" />
+        <outline text="Unfilter" title="Unfilter" type="rss" htmlUrl="https://feeds.fireside.fm/unfilter/rss" xmlUrl="https://feeds.fireside.fm/unfilter/rss" />
+        <outline text="Syntax - Tasty Web Development Treats" title="Syntax - Tasty Web Development Treats" type="rss" htmlUrl="https://feed.syntax.fm/rss" xmlUrl="https://feed.syntax.fm/rss" />
+        <outline text="Develop Through the Lens" title="Develop Through the Lens" type="rss" htmlUrl="https://feeds.buzzsprout.com/1751202.rss" xmlUrl="https://feeds.buzzsprout.com/1751202.rss" />
+        <outline text="Professionally Evil Perspective" title="Professionally Evil Perspective" type="rss" htmlUrl="https://secureideas.libsyn.com/rss" xmlUrl="https://secureideas.libsyn.com/rss" />
+        <outline text="What Bitcoin Did" title="What Bitcoin Did" type="rss" htmlUrl="https://www.whatbitcoindid.com/podcast?format=rss" xmlUrl="https://www.whatbitcoindid.com/podcast?format=rss" />
+        <outline text="No Agenda" title="No Agenda" type="rss" htmlUrl="http://feed.nashownotes.com/rss.xml" xmlUrl="http://feed.nashownotes.com/rss.xml" />
+        <outline text="Craft of Code" title="Craft of Code" type="rss" htmlUrl="https://feeds.captivate.fm/craft-of-code/" xmlUrl="https://feeds.captivate.fm/craft-of-code/" />
+        <outline text="env0cast" title="env0cast" type="rss" htmlUrl="https://anchor.fm/s/4ae68fe4/podcast/rss" xmlUrl="https://anchor.fm/s/4ae68fe4/podcast/rss" />
+        <outline text="Podcasting 2.0" title="Podcasting 2.0" type="rss" htmlUrl="http://mp3s.nashownotes.com/pc20rss.xml" xmlUrl="http://mp3s.nashownotes.com/pc20rss.xml" />
+        <outline text="Ubuntu Podcast" title="Ubuntu Podcast" type="rss" htmlUrl="https://ubuntupodcast.org/feed/podcast" xmlUrl="https://ubuntupodcast.org/feed/podcast" />
+        <outline text="Open Source Voices" title="Open Source Voices" type="rss" htmlUrl="https://www.opensourcevoices.org/rss" xmlUrl="https://www.opensourcevoices.org/rss" />
+        <outline text="The Opinion Dominion" title="The Opinion Dominion" type="rss" htmlUrl="https://www.theopiniondominion.org/rss" xmlUrl="https://www.theopiniondominion.org/rss" />
+        <outline text="Late Night Linux All Episodes" title="Late Night Linux All Episodes" type="rss" htmlUrl="https://latenightlinux.com/feed/all" xmlUrl="https://latenightlinux.com/feed/all" />
+        <outline text="Destination Linux Network: All Shows" title="Destination Linux Network: All Shows" type="rss" htmlUrl="https://destinationlinux.network/feed/allshows" xmlUrl="https://destinationlinux.network/feed/allshows" />
         <outline text="The voices of infosec podcast" title="The voices of infosec podcast" type="rss" htmlUrl="https://thevoicesofinfosec.nviso.eu/feed/podcast" xmlUrl="https://thevoicesofinfosec.nviso.eu/feed/podcast" />
         <outline text="The Homelab Show" title="The Homelab Show" type="rss" htmlUrl="http://thehomelab.show/feed/podcast" xmlUrl="http://thehomelab.show/feed/podcast" />
         <outline text="Alex&apos;s Master Feed" title="Alex&apos;s Master Feed" type="rss" htmlUrl="http://elrey.casa/personal_podcasts/favorites" xmlUrl="http://elrey.casa/personal_podcasts/favorites" />
         <outline text="Cloud Posse DevOps &quot;Office Hours&quot; Podcast" title="Cloud Posse DevOps &quot;Office Hours&quot; Podcast" type="rss" htmlUrl="https://feeds.buzzsprout.com/780593.rss" xmlUrl="https://feeds.buzzsprout.com/780593.rss" />
         <outline text="Cortex" title="Cortex" type="rss" htmlUrl="https://www.relay.fm/cortex/feed" xmlUrl="https://www.relay.fm/cortex/feed" />
-        <outline text="The Opinion Dominion" title="The Opinion Dominion" type="rss" htmlUrl="https://feeds.fireside.fm/theopiniondominion/rss" xmlUrl="https://feeds.fireside.fm/theopiniondominion/rss" />
-        <outline text="Open Source Voices" title="Open Source Voices" type="rss" htmlUrl="https://feeds.fireside.fm/opensourcevoices/rss" xmlUrl="https://feeds.fireside.fm/opensourcevoices/rss" />
         <outline text="Changelog Master Feed" title="Changelog Master Feed" type="rss" htmlUrl="https://www.changelog.com/master/feed" xmlUrl="https://www.changelog.com/master/feed" />
         <outline text="DLN Xtend" title="DLN Xtend" type="rss" htmlUrl="https://feeds.fireside.fm/dlnxtend/rss" xmlUrl="https://feeds.fireside.fm/dlnxtend/rss" />
         <outline text="All Jupiter Broadcasting Shows" title="All Jupiter Broadcasting Shows" type="rss" htmlUrl="https://feed.jupiter.zone/allshows" xmlUrl="https://feed.jupiter.zone/allshows" />
@@ -40,9 +52,9 @@
         <outline text="Our Daily Bread Podcast | Our Daily Bread" title="Our Daily Bread Podcast | Our Daily Bread" type="rss" htmlUrl="https://odb.org/podcast/" xmlUrl="https://odb.org/podcast/" />
         <outline text="AWS Podcast" title="AWS Podcast" type="rss" htmlUrl="https://d3gih7jbfe3jlq.cloudfront.net/aws-podcast.rss" xmlUrl="https://d3gih7jbfe3jlq.cloudfront.net/aws-podcast.rss" />
         <outline text="The Shared Security Show" title="The Shared Security Show" type="rss" htmlUrl="https://sharedsecurity.net/feed/podcast/" xmlUrl="https://sharedsecurity.net/feed/podcast/" />
-        <outline text="Recorded Future - Inside Security Intelligence" title="Recorded Future - Inside Security Intelligence" type="rss" htmlUrl="https://recordedfuture.libsyn.com/rss" xmlUrl="https://recordedfuture.libsyn.com/rss" />
+        <outline text="Click Here" title="Click Here" type="rss" htmlUrl="https://recordedfuture.libsyn.com/rss" xmlUrl="https://recordedfuture.libsyn.com/rss" />
         <outline text="Cyber Warfare Podcast" title="Cyber Warfare Podcast" type="rss" htmlUrl="https://cyberwarfarepodcast.com/feed/podcast/" xmlUrl="https://cyberwarfarepodcast.com/feed/podcast/" />
-        <outline text="SANS Internet Stormcenter Daily Network/Cyber Security and Information Security Stormcast" title="SANS Internet Stormcenter Daily Network/Cyber Security and Information Security Stormcast" type="rss" htmlUrl="https://isc.sans.edu/dailypodcast.xml" xmlUrl="https://isc.sans.edu/dailypodcast.xml" />
+        <outline text="SANS Internet Stormcenter Daily Cyber Security Podcast (Stormcast)" title="SANS Internet Stormcenter Daily Cyber Security Podcast (Stormcast)" type="rss" htmlUrl="https://isc.sans.edu/dailypodcast.xml" xmlUrl="https://isc.sans.edu/dailypodcast.xml" />
         <outline text="Software Engineering Daily" title="Software Engineering Daily" type="rss" htmlUrl="https://softwareengineeringdaily.com/feed/podcast/" xmlUrl="https://softwareengineeringdaily.com/feed/podcast/" />
         <outline text="cloudonaut" title="cloudonaut" type="rss" htmlUrl="https://podcast.cloudonaut.io/feed/mp3" xmlUrl="https://podcast.cloudonaut.io/feed/mp3" />
         <outline text="Thinking in Public - AlbertMohler.com" title="Thinking in Public - AlbertMohler.com" type="rss" htmlUrl="http://feeds.feedburner.com/AlbertMohlerThinkingInPublic" xmlUrl="http://feeds.feedburner.com/AlbertMohlerThinkingInPublic" />
@@ -61,7 +73,7 @@
         <outline text="LinuxServer.io" title="LinuxServer.io" type="rss" htmlUrl="https://anchor.fm/s/57fec20/podcast/rss" xmlUrl="https://anchor.fm/s/57fec20/podcast/rss" />
         <outline text="School of Hard Knox" title="School of Hard Knox" type="rss" htmlUrl="https://feeds.fireside.fm/schoolofhardknox/rss" xmlUrl="https://feeds.fireside.fm/schoolofhardknox/rss" />
         <outline text="Level Design Lobby" title="Level Design Lobby" type="rss" htmlUrl="http://leveldesignlobby.libsyn.com/rss" xmlUrl="http://leveldesignlobby.libsyn.com/rss" />
-        <outline text="TED Talks Technology" title="TED Talks Technology" type="rss" htmlUrl="http://feeds.feedburner.com/iTunesPodcastTTTechnology" xmlUrl="http://feeds.feedburner.com/iTunesPodcastTTTechnology" />
+        <outline text="TED Tech" title="TED Tech" type="rss" htmlUrl="http://feeds.feedburner.com/iTunesPodcastTTTechnology" xmlUrl="http://feeds.feedburner.com/iTunesPodcastTTTechnology" />
         <outline text="Linux For Everyone" title="Linux For Everyone" type="rss" htmlUrl="https://feeds.fireside.fm/linuxforeveryone/rss" xmlUrl="https://feeds.fireside.fm/linuxforeveryone/rss" />
         <outline text="The School of Greatness" title="The School of Greatness" type="rss" htmlUrl="http://feeds.soundcloud.com/users/soundcloud:users:4135366/sounds.rss" xmlUrl="http://feeds.soundcloud.com/users/soundcloud:users:4135366/sounds.rss" />
         <outline text="Daily Tech Headlines" title="Daily Tech Headlines" type="rss" htmlUrl="http://feeds.feedburner.com/DailyTechHeadlines" xmlUrl="http://feeds.feedburner.com/DailyTechHeadlines" />
