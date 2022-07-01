@@ -22,7 +22,7 @@ function deps_install(){
   packages=( 'curl' )
   case "${ID}" in
     *debian*)
-      packages+=( 'python3-distutils' )
+      packages+=( 'python3-distutils*' )
       package_manager='apt-get'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=( 'update' )
@@ -63,9 +63,14 @@ function deps_install(){
   for package in "${packages[@]}"; do
     bin_provided="${package##*|}"
     package_name="${package%%|*}"
-    if ! command -v "${bin_provided:-${package_name}}" > /dev/null ; then
-      needs+=("${package_name}")
-      need_to_install='true'
+    # indicating it's a package name to check for
+    if grep -F '*' "${package_name}" > /dev/null ; then
+      ${package_manager} list --installed | grep "${package_name}"
+    else
+      if ! command -v "${bin_provided:-${package_name}}" > /dev/null ; then
+        needs+=("${package_name}")
+        need_to_install='true'
+      fi
     fi
   done
 
