@@ -23,7 +23,7 @@ function deps_install(){
   case "${ID}" in
     *debian*)
       packages+=( 'python3-distutils*' )
-      package_manager='apt-get'
+      package_manager='apt'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=( 'update' )
       ;;
