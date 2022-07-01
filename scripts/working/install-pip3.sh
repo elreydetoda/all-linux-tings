@@ -114,10 +114,15 @@ function install_deps(){
 }
 
 function install_pip3(){
-  if [[ "${EUID}" == 0 ]] ; then
-    curl -s https://bootstrap.pypa.io/get-pip.py | python3
+  if [[ -n "${VERSION_OVERRIDE}" ]] ; then
+    bootstrap_url='https://bootstrap.pypa.io/get-pip.py'
   else
-    curl -s https://bootstrap.pypa.io/get-pip.py | sudo python3
+    bootstrap_url="https://bootstrap.pypa.io/pip/${VERSION_OVERRIDE}/get-pip.py"
+  fi
+  if [[ "${EUID}" == 0 ]] ; then
+    curl -s "${bootstrap_url}" | python3
+  else
+    curl -s "${bootstrap_url}" | sudo python3
   fi
 }
 
@@ -125,6 +130,7 @@ function install_pip3(){
 function main(){
   # check_os
   # install_deps
+  VERSION_OVERRIDE="${VERSION_OVERRIDE:-}"
   if command -v pip3 ; then
     echo "You already have pip installed"
     exit 0
