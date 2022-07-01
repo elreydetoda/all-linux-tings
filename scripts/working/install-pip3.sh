@@ -115,9 +115,9 @@ function install_deps(){
 
 function install_pip3(){
   if [[ -n "${VERSION_OVERRIDE}" ]] ; then
-    bootstrap_url='https://bootstrap.pypa.io/get-pip.py'
-  else
     bootstrap_url="https://bootstrap.pypa.io/pip/${VERSION_OVERRIDE}/get-pip.py"
+  else
+    bootstrap_url='https://bootstrap.pypa.io/get-pip.py'
   fi
   if [[ "${EUID}" == 0 ]] ; then
     curl -s "${bootstrap_url}" | python3
