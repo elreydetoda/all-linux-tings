@@ -64,8 +64,13 @@ function deps_install(){
     bin_provided="${package##*|}"
     package_name="${package%%|*}"
     # indicating it's a package name to check for
-    if grep -F '*' "${package_name}" > /dev/null ; then
-      ${package_manager} list --installed | grep "${package_name}"
+    if grep -F '*' <<< "${package_name}" > /dev/null ; then
+      if ${package_manager} list --installed | grep -F "${package_name%%\**}" ; then
+        :
+      else
+        needs+=("${package_name}")
+        need_to_install='true'
+      fi
     else
       if ! command -v "${bin_provided:-${package_name}}" > /dev/null ; then
         needs+=("${package_name}")
