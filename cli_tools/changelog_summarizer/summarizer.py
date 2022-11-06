@@ -87,7 +87,7 @@ def build_md(
     final_md_str: str,
     current_release: RepoRelease,
 ) -> str:
-    final_md_str += f"# {current_release.tag_name}\n"
+    final_md_str += f"# [{current_release.tag_name}]({current_release.html_url})\n"
     final_md_str += f"{current_release.body}\n"
     return final_md_str
 
@@ -161,9 +161,9 @@ def main(
                 ).tag_name
 
                 for release in releases.releases:
-                    final_md_str = build_md(final_md_str, release)
                     if release.tag_name == stop_tag:
                         break
+                    final_md_str = build_md(final_md_str, release)
 
             click.echo(final_md_str, file=output)
 
