@@ -22,8 +22,8 @@ function deps_install(){
   packages=( 'curl' )
   case "${ID}" in
     *debian*)
-      packages+=( 'python3-distutils' )
-      package_manager='apt-get'
+      packages+=( 'python3-distutils*' )
+      package_manager='apt'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=( 'update' )
       ;;
@@ -63,9 +63,19 @@ function deps_install(){
   for package in "${packages[@]}"; do
     bin_provided="${package##*|}"
     package_name="${package%%|*}"
-    if ! command -v "${bin_provided:-${package_name}}" > /dev/null ; then
-      needs+=("${package_name}")
-      need_to_install='true'
+    # indicating it's a package name to check for
+    if grep -F '*' <<< "${package_name}" > /dev/null ; then
+      if ${package_manager} list --installed | grep -F "${package_name%%\**}" ; then
+        :
+      else
+        needs+=("${package_name}")
+        need_to_install='true'
+      fi
+    else
+      if ! command -v "${bin_provided:-${package_name}}" > /dev/null ; then
+        needs+=("${package_name}")
+        need_to_install='true'
+      fi
     fi
   done
 
@@ -104,10 +114,15 @@ function install_deps(){
 }
 
 function install_pip3(){
-  if [[ "${EUID}" == 0 ]] ; then
-    curl -s https://bootstrap.pypa.io/get-pip.py | python3
+  if [[ -n "${VERSION_OVERRIDE}" ]] ; then
+    bootstrap_url="https://bootstrap.pypa.io/pip/${VERSION_OVERRIDE}/get-pip.py"
   else
-    curl -s https://bootstrap.pypa.io/get-pip.py | sudo python3
+    bootstrap_url='https://bootstrap.pypa.io/get-pip.py'
+  fi
+  if [[ "${EUID}" == 0 ]] ; then
+    curl -s "${bootstrap_url}" | python3
+  else
+    curl -s "${bootstrap_url}" | sudo python3
   fi
 }
 
@@ -115,6 +130,7 @@ function install_pip3(){
 function main(){
   # check_os
   # install_deps
+  VERSION_OVERRIDE="${VERSION_OVERRIDE:-}"
   if command -v pip3 ; then
     echo "You already have pip installed"
     exit 0
