@@ -112,7 +112,10 @@ def repo_release_list(
     "-c",
     "--compare-release",
     default="latest",
-    help="This is the release you'd like to compare against (default: latest)",
+    help="""
+    This is the release you'd like to compare against (default: latest) &
+    be sure to specify v0.101.0 if they use a v for their tags
+    """,
 )
 @click.option(
     "-o",
