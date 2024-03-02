@@ -6,5 +6,5 @@
 # https://elrey.casa/bash/scripting/harden
 set -${-//[sc]/}eu${DEBUG+xv}o pipefail
 
-curl -fsS 'https://apt.releases.hashicorp.com/gpg' | sudo apt-key add -
+curl -fsS 'https://apt.releases.hashicorp.com/gpg' | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/hashicorp.gpg > /dev/null
 sudo apt-add-repository -u "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
