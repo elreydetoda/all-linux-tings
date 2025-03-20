@@ -38,6 +38,7 @@ class RefreshPostData:
     grant_type: str
     refresh_token: str
     client_id: str
+    scope: str | None = None
 
 
 class RefreshTokenResponse(BaseModel):
@@ -65,6 +66,8 @@ def _refresh_token_req(
     grant_type: str,
     refresh_token: str,
     client_id: str,
+    scope: str,
+    user_agent: str,
 ) -> requests.Response:
     return requests.post(
         url,
@@ -73,11 +76,15 @@ def _refresh_token_req(
                 grant_type=grant_type,
                 refresh_token=refresh_token,
                 client_id=client_id,
+                scope=scope,
             )
         ),
         timeout=300,
         proxies={"https": burp, "http": burp},
         verify=False,
+        headers={
+            "User-Agent": user_agent,
+        },
     )
 
 
@@ -149,6 +156,18 @@ def wait_for_refresh_time(refresh_time: int):
     required=True,
     prompt=True,
 )
+@click.option(
+    "--scope",
+    type=str,
+    default="openid+offline_access",
+    help="Scope",
+)
+@click.option(
+    "--user-agent",
+    type=str,
+    default="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+    help="User agent string (since some apps block requests' user agent...Azure application gateway...)",
+)
 # pylint: disable=missing-function-docstring,too-many-arguments
 def main(
     burp: str,
@@ -156,7 +175,9 @@ def main(
     grant_type: str,
     refresh_token: str,
     client_id: str,
-    refresh_url,
+    refresh_url: str,
+    scope: str,
+    user_agent: str,
 ):
     # pylint: disable=global-statement
     global DEBUG
@@ -169,6 +190,8 @@ def main(
             grant_type,
             refresh_token,
             client_id,
+            scope,
+            user_agent,
         )
         __response_debug(response=response)
 
@@ -190,3 +213,4 @@ def main(
 if __name__ == "__main__":
     # pylint: disable=no-value-for-parameter
     main()
+
