@@ -1,12 +1,10 @@
 # /// script
-# requires-python = ">=3.12,<3.13"
+# requires-python = ">=3.9,<3.13"
 # dependencies = [
 #     "click>=8.1.7",
 #     "pydantic>=2.9.2",
 #     "requests>=2.32.3",
 # ]
-# [tool.uv]
-# python-preference = "only-managed"
 # ///
 
 ## Run this (PEP 723 compliant) script with: uv run --script jwt_refresh.py
@@ -16,6 +14,7 @@ import sys
 from dataclasses import asdict
 from datetime import datetime, timedelta
 from time import sleep
+from typing import Optional
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass as py_dataclass
 
@@ -38,7 +37,7 @@ class RefreshPostData:
     grant_type: str
     refresh_token: str
     client_id: str
-    scope: str | None = None
+    scope: Optional[str] = None
 
 
 class RefreshTokenResponse(BaseModel):
@@ -50,8 +49,8 @@ class RefreshTokenResponse(BaseModel):
     token_type: str
     expires_in: int
     refresh_token: str
-    scope: str | None = None
-    refresh_expires_in: int | None = None
+    scope: Optional[str] = None
+    refresh_expires_in: Optional[int] = None
 
 
 def __response_debug(response: requests.Response):
