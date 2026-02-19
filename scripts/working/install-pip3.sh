@@ -24,7 +24,7 @@ function deps_install(){
     *debian*)
       packages+=( 'python3-distutils' )
       # not needed on Ubuntu 24.04 & up
-      [ "${ID}" = "ubuntu" ] && dpkg --compare-versions "${VERSION_ID}" ge 24.04 && packages[-1]
+      [ "${ID}" = "ubuntu" ] && dpkg --compare-versions "${VERSION_ID}" ge 24.04 && unset 'packages[${#packages[@]}-1]'
       package_manager='apt-get'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=( 'update' )
