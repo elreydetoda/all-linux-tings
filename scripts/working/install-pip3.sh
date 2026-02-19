@@ -19,9 +19,8 @@ function deps_install(){
 
   # shellcheck disable=SC1091
   source /etc/os-release
-  ID="$( [ -n "${ID_LIKE:-}" ] && echo "${ID_LIKE}" || echo "${ID:-}" )"
   packages=( 'curl' )
-  case "${ID}" in
+  case "$( [ -n "${ID_LIKE:-}" ] && echo "${ID_LIKE}" || echo "${ID:-}" )" in
     *debian*)
       packages+=( 'python3-distutils' )
       # not needed on Ubuntu 24.04 & up
