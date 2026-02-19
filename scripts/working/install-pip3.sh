@@ -18,11 +18,14 @@ function deps_install(){
   fi
 
   # shellcheck disable=SC1091
-  ID="$( source /etc/os-release ; [ -n "${ID_LIKE:-}" ] && echo "${ID_LIKE}" || echo "${ID:-}" )"
+  source /etc/os-release
+  ID="$( [ -n "${ID_LIKE:-}" ] && echo "${ID_LIKE}" || echo "${ID:-}" )"
   packages=( 'curl' )
   case "${ID}" in
     *debian*)
       packages+=( 'python3-distutils' )
+      # not needed on Ubuntu 24.04 & up
+      [ "${ID}" = "ubuntu" ] && dpkg --compare-versions "${VERSION_ID}" ge 24.04 && packages[-1]
       package_manager='apt-get'
       package_manager_install_cmd=('install' '-y')
       package_manager_update_cmd=( 'update' )
